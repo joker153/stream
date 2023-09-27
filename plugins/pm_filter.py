@@ -10,11 +10,11 @@ from Script import script
 import pyrogram
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
     make_inactive
-from info import ADMINS, AUTH_CHANNEL, FILE_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, NOR_IMG, AUTH_GROUPS, \
+from info import ADMINS, APPROVED, WELCOME_TEXT, JOIN_CHANNEL_TEXT, JOIN_CHANNEL_LINK, AUTH_CHANNEL, FILE_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, NOR_IMG, AUTH_GROUPS, \
     P_TTI_SHOW_OFF, IMDB, \
     SINGLE_BUTTON, SPELL_CHECK_REPLY, IMDB_TEMPLATE, SPELL_IMG, MSG_ALRT, FILE_FORWARD, MAIN_CHANNEL, LOG_CHANNEL, PICS, \
     SUPPORT_CHAT_ID, REQ_CHANNEL
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaPhoto, ChatJoinRequest
 from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
 from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, \
@@ -39,6 +39,25 @@ BUTTONS = {}
 SPELL_CHECK = {}
 FILTER_MODE = {}
 LANGUAGES = ["malayalam", "tamil", "english", "hindi", "telugu", "kannada"]
+
+
+@Client.on_chat_join_request(filters.group | filters.channel)
+async def custom_autoapprove(client: Client, message: ChatJoinRequest):
+    chat = message.chat
+    user = message.from_user
+    print(f"{user.first_name} Joined 🤝")  # Logs
+
+    # Define the specific channel's chat_id to exclude
+    excluded_channel_chat_id = AUTH_CHANNEL
+
+    if chat.id != excluded_channel_chat_id:
+        await client.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
+        if APPROVED == "on":
+            welcome_text = WELCOME_TEXT.format(mention=user.mention, title=chat.title)
+            button = None
+            if JOIN_CHANNEL_LINK:
+                button = InlineKeyboardMarkup([[InlineKeyboardButton(JOIN_CHANNEL_TEXT, url=JOIN_CHANNEL_LINK)]])
+            await client.send_message(chat_id=user.id, text=welcome_text, reply_markup=button)
 
 
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
