@@ -239,9 +239,9 @@ async def next_page(bot, query):
                )
     btn.insert(1,
                [
-                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
     btn.insert(2,
@@ -290,12 +290,7 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
-    if query.message.chat.type not in ['group', 'supergroup']:
-       if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+
 
     _, search, key = query.data.split("#")
 
@@ -332,15 +327,8 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-    
-if query.message.chat.type in ['group', 'supergroup']:
-    req = query.from_user.id
 
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-    return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+
 
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
@@ -468,7 +456,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
@@ -477,12 +465,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
-    if query.message.chat.type not in ['group', 'supergroup']:
-       if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-           return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+
 
     _, search, key = query.data.split("#")
 
@@ -506,7 +489,7 @@ async def languages_cb_handler(client: Client, query: CallbackQuery):
     )
     req = query.from_user.id
     offset = 0
-    btn.append([InlineKeyboardButton(text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻", callback_data=f"next_{req}_{key}_{offset}")])
+    btn.append([InlineKeyboardButton(text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻", callback_data=f"next_{req}_{key}_{offset}")])
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
@@ -519,13 +502,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-if query.message.chat.type in ['group', 'supergroup']:
-    req = query.from_user.id    
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+    
 
     search = f"{search} {lang}"
 
@@ -651,7 +628,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
@@ -662,12 +639,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
-    if query.message.chat.type not in ['group', 'supergroup']:
-       if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+
 
     _, search, key = query.data.split("#")
 
@@ -704,14 +676,8 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-if query.message.chat.type in ['group', 'supergroup']:
-    req = query.from_user.id    
 
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+   
 
     # Construct the search query with the selected season
     search = f"{search} {season}"
@@ -840,7 +806,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
@@ -1929,9 +1895,9 @@ async def auto_filter(client, msg, spoll=False):
                )
     btn.insert(1,
                [
-                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
     btn.insert(2,
@@ -2368,4 +2334,4 @@ async def global_filters(client, message, text=False):
                 break
     else:
         return False
-
+        
