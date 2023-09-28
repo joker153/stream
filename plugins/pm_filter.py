@@ -250,13 +250,13 @@ async def next_page(bot, query):
             ]
     btn.insert(0,
                [
-                   InlineKeyboardButton(f' ♀️ {search} ♀️ ', 'qinfo')
+                   InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
                ]
                )
     btn.insert(1,
                [
                    InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
-                   InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
@@ -478,7 +478,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
         InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
         InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
     ])
-    offset = 0
+    offset = 1
 
     btn.append([
         InlineKeyboardButton(
@@ -660,7 +660,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
         InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
         InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
     ])
-    offset = 0
+    offset = 1
 
     btn.append([
         InlineKeyboardButton(
@@ -848,7 +848,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
         InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
         InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
     ])
-    offset = 0
+    offset = 1
 
     btn.append([
         InlineKeyboardButton(
@@ -1936,7 +1936,7 @@ async def auto_filter(client, msg, spoll=False):
     key = f"{message.chat.id}-{message.id}"
     btn.insert(0,
                [
-                   InlineKeyboardButton(f' ♀️ {search} ♀️ ', 'qinfo')
+                   InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
                ]
                )
     btn.insert(1,
