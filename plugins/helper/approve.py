@@ -1,7 +1,7 @@
 import os
 import asyncio
 from pyrogram import Client, filters
-from pyrogram.types import Message, User, ChatJoinRequest
+from pyrogram.types import Message, User, ChatJoinRequest, InlineKeyboardMarkup, InlineKeyboardButton
 from info import CHAT_ID, TEXT, APPROVED, WELCOME_TEXT, JOIN_CHANNEL_TEXT, JOIN_CHANNEL_LINK, AUTH_CHANNEL
 
 
