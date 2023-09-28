@@ -474,9 +474,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
-        InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-        InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 1
 
@@ -656,9 +654,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
-        InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-        InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 1
 
@@ -844,9 +840,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
-        InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-        InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 1
 
