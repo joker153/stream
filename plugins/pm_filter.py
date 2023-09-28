@@ -476,7 +476,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
-    offset = 1
+    offset = 0
 
     btn.append([
         InlineKeyboardButton(
@@ -656,7 +656,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
-    offset = 1
+    offset = 0
 
     btn.append([
         InlineKeyboardButton(
@@ -842,7 +842,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
-    offset = 1
+    offset = 0
 
     btn.append([
         InlineKeyboardButton(
