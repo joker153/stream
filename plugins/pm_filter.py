@@ -1936,7 +1936,7 @@ async def auto_filter(client, msg, spoll=False):
     btn.insert(1,
                [
                    InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
-                   InlineKeyboardButton("🇸🇪🇦🇸🇴🇳🇸​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
