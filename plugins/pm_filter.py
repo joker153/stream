@@ -306,7 +306,7 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
-    if int(query.from_user.id) not in [query.message.reply_to_message.from_user.id, 0]:
+    if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
@@ -489,7 +489,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
-    if int(query.from_user.id) not in [query.message.reply_to_message.from_user.id, 0]:
+    if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
@@ -671,7 +671,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
-    if int(query.from_user.id) not in [query.message.reply_to_message.from_user.id, 0]:
+    if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
