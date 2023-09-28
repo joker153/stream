@@ -290,7 +290,7 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
-    if query.message.chat.type not in ['group', 'supergroup']:
+if query.message.chat.type not in ['group', 'supergroup']:
     if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
@@ -477,7 +477,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
-    if query.message.chat.type not in ['group', 'supergroup']:
+if query.message.chat.type not in ['group', 'supergroup']:
     if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
@@ -662,7 +662,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
-    if query.message.chat.type not in ['group', 'supergroup']:
+if query.message.chat.type not in ['group', 'supergroup']:
     if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
