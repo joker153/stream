@@ -479,7 +479,7 @@ if query.message.chat.type in ['group', 'supergroup']:
 async def languages_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type not in ['group', 'supergroup']:
        if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-           lreturn await query.answer(
+           return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
         )
