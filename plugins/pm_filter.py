@@ -255,7 +255,8 @@ async def next_page(bot, query):
                )
     btn.insert(1,
                [
-                   InlineKeyboardButton("🇸🇪🇦🇸🇴🇳🇸​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
@@ -473,7 +474,9 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Fɪʟᴇs Tᴏ PM !", callback_data=f"send_fall#files#{key}#{offset}")
+        InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+        InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
+        InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
     ])
     offset = 0
 
@@ -653,7 +656,9 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Fɪʟᴇs Tᴏ PM !", callback_data=f"send_fall#files#{key}#{offset}")
+        InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+        InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
+        InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
     ])
     offset = 0
 
@@ -839,7 +844,9 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton("! Sᴇɴᴅ Aʟʟ Fɪʟᴇs Tᴏ PM !", callback_data=f"send_fall#files#{key}#{offset}")
+        InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+        InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
+        InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
     ])
     offset = 0
 
@@ -1934,6 +1941,7 @@ async def auto_filter(client, msg, spoll=False):
                )
     btn.insert(1,
                [
+                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("🇸🇪🇦🇸🇴🇳🇸​", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
