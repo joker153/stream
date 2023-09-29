@@ -328,11 +328,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     chat_id = query.message.chat.id
     message = query.message
 
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+
 
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
@@ -456,37 +452,14 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
-    if 0 < offset <= 10:
-        off_set = 0
-    elif offset == 0:
-        off_set = None
-    else:
-        off_set = offset - 10
-    if n_offset == 0:
-        btn.append(
-            [InlineKeyboardButton("⌫ 𝐁𝐀𝐂𝐊", callback_data=f"next_{req}_{key}_{off_set}"),
-             InlineKeyboardButton(f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
-                                  callback_data="pages")]
-        )
-    elif off_set is None:
-        btn.append(
-            [InlineKeyboardButton(f"{math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}", callback_data="pages"),
-             InlineKeyboardButton("𝐍𝐄𝐗𝐓 ⌦", callback_data=f"next_{req}_{key}_{n_offset}")])
-    else:
-        btn.append(
-            [
-                InlineKeyboardButton("⌫ 𝐁𝐀𝐂𝐊", callback_data=f"next_{req}_{key}_{off_set}"),
-                InlineKeyboardButton(f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
-                                     callback_data="pages"),
-                InlineKeyboardButton("𝐍𝐄𝐗𝐓 ⌦", callback_data=f"next_{req}_{key}_{n_offset}")
-            ],
-        )    
-        btn.append([
-            InlineKeyboardButton(
-                text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-                callback_data=f"next_{req}_{key}_{offset}"
-            ),
-        ])
+    offset = 0
+
+    btn.append([
+        InlineKeyboardButton(
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            callback_data=f"next_{req}_{key}_{offset}"
+        ),
+    ])
 
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
@@ -529,11 +502,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+    
 
     search = f"{search} {lang}"
 
@@ -708,11 +677,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     chat_id = query.message.chat.id
     message = query.message
 
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+   
 
     # Construct the search query with the selected season
     search = f"{search} {season}"
