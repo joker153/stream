@@ -290,30 +290,15 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
-    data_parts = query.data.split("#")
-    
-    # Ensure the callback is in a group chat
-    if query.message.chat.type not in ('group', 'supergroup'):
-        return
-    
-    if len(data_parts) != 2:
-        return  # Handle invalid data format gracefully
 
-    userid = data_parts[1]
 
-    if int(userid) != query.from_user.id:
-        return await query.answer(
-            f"⚠️ Hello {query.from_user.first_name},\nThis is not your movie request,\nRequest your own...",
-            show_alert=True,
-        )
-
-    _, search, key = data_parts[0].split("#")
+    _, search, key = query.data.split("#")
 
     btn = [
         [
             InlineKeyboardButton(
                 text=quality_name,
-                callback_data=f"quality#{quality_value}#{search}#{key}#{userid}"
+                callback_data=f"quality#{quality_value}#{search}#{key}"
             ),
         ]
         for quality_name, quality_value in QUALITIES.items()
@@ -336,25 +321,19 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
-    data_parts = query.data.split("#")
+    _, quality, search, key = query.data.split("#")
 
-    # Ensure the callback is in a group chat
-    if query.message.chat.type not in ('group', 'supergroup'):
-        return
+    search = search.replace("_", " ")
+    req = query.from_user.id
+    chat_id = query.message.chat.id
+    message = query.message
 
-    if len(data_parts) != 5:
-        return  # Handle invalid data format gracefully
-
-    quality = data_parts[1]
-    search = data_parts[2].replace("_", " ")
-    key = data_parts[3]
-    userid = data_parts[4]
-
-    if int(userid) != query.from_user.id:
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
         return await query.answer(
-            f"⚠️ Hello {query.from_user.first_name},\nThis is not your movie request,\nRequest your own...",
+            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
         )
+
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
 
@@ -490,9 +469,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
-    _, userid = query.data.split("#")
-    if int(userid) not in [query.from_user.id, 0]:
-        return await query.answer(f"⚠️ ʜᴇʟʟᴏ (query.from_user.first_name),\nThis is not your movie request,\nRequest your own...", show_alert=True)
+
 
     _, search, key = query.data.split("#")
 
@@ -529,8 +506,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-    _, userid = query.data.split("#")
-    if int(userid) not in [query.from_user.id, 0]:
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
@@ -671,9 +647,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, userid = query.data.split("#")
-    if int(userid) not in [query.from_user.id, 0]:
-        return await query.answer(f"⚠️ ʜᴇʟʟᴏ (query.from_user.first_name),\nThis is not your movie request,\nRequest your own...", show_alert=True)
+
 
     _, search, key = query.data.split("#")
 
@@ -710,9 +684,8 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-    _, userid = query.data.split("#")
 
-    if int(userid) not in [query.from_user.id, 0]:
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
         return await query.answer(
             f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
             show_alert=True,
