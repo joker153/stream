@@ -290,25 +290,30 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
-    _, userid = query.data.split("#")
+    data_parts = query.data.split("#")
     
     # Ensure the callback is in a group chat
     if query.message.chat.type not in ('group', 'supergroup'):
         return
     
+    if len(data_parts) != 2:
+        return  # Handle invalid data format gracefully
+
+    userid = data_parts[1]
+
     if int(userid) != query.from_user.id:
         return await query.answer(
             f"⚠️ Hello {query.from_user.first_name},\nThis is not your movie request,\nRequest your own...",
             show_alert=True,
         )
 
-    _, search, key = query.data.split("#")
+    _, search, key = data_parts[0].split("#")
 
     btn = [
         [
             InlineKeyboardButton(
                 text=quality_name,
-                callback_data=f"quality#{quality_value}#{search}#{key}"
+                callback_data=f"quality#{quality_value}#{search}#{key}#{userid}"
             ),
         ]
         for quality_name, quality_value in QUALITIES.items()
@@ -331,20 +336,25 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
-    _, quality, search, key, userid = query.data.split("#")
-
-    search = search.replace("_", " ")
+    data_parts = query.data.split("#")
 
     # Ensure the callback is in a group chat
     if query.message.chat.type not in ('group', 'supergroup'):
         return
+
+    if len(data_parts) != 5:
+        return  # Handle invalid data format gracefully
+
+    quality = data_parts[1]
+    search = data_parts[2].replace("_", " ")
+    key = data_parts[3]
+    userid = data_parts[4]
 
     if int(userid) != query.from_user.id:
         return await query.answer(
             f"⚠️ Hello {query.from_user.first_name},\nThis is not your movie request,\nRequest your own...",
             show_alert=True,
         )
-
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
 
