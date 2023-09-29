@@ -313,7 +313,7 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
         ],
     )
     req = query.from_user.id
-    
+    offset = 0
     btn.append([InlineKeyboardButton(text="↺ Back to Files  ↻", callback_data=f"next_{req}_{key}_{offset}")])
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
@@ -481,7 +481,6 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                 InlineKeyboardButton("𝐍𝐄𝐗𝐓 ⌦", callback_data=f"next_{req}_{key}_{n_offset}")
             ],
         )    
-        offset = 0
         btn.append([
             InlineKeyboardButton(
                 text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
