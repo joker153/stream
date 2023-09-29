@@ -333,7 +333,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
 
-    files, n_offset, offset, _ = await get_search_results(search, max_results=10)
+    files, n_offset, offset, _ = await get_search_results(search, offset=offset, filter=True)
     files = [file for file in files if re.search(quality, file.file_name, re.IGNORECASE)]
     try:
         n_offset = int(n_offset)
