@@ -481,13 +481,13 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                 InlineKeyboardButton("𝐍𝐄𝐗𝐓 ⌦", callback_data=f"next_{req}_{key}_{n_offset}")
             ],
         )    
-
-    btn.append([
-        InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-            callback_data=f"next_{req}_{key}_{offset}"
-        ),
-    ])
+        offset = 0
+        btn.append([
+            InlineKeyboardButton(
+                text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+                callback_data=f"next_{req}_{key}_{offset}"
+            ),
+        ])
 
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
