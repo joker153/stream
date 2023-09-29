@@ -333,8 +333,12 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
 
-    files, offset, _ = await get_search_results(search, max_results=10)
+    files, n_offset, offset, _ = await get_search_results(search, max_results=10)
     files = [file for file in files if re.search(quality, file.file_name, re.IGNORECASE)]
+    try:
+        n_offset = int(n_offset)
+    except:
+        n_offset = 0
 
     if not files:
         await query.answer("🚫 No Files Were Found 🚫", show_alert=1)
