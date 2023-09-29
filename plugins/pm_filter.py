@@ -291,8 +291,16 @@ async def next_page(bot, query):
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
     _, userid = query.data.split("#")
-    if int(userid) not in [query.from_user.id, 0]:
-        return await query.answer(f"⚠️ ʜᴇʟʟᴏ (query.from_user.first_name),\nThis is not your movie request,\nRequest your own...", show_alert=True)
+    
+    # Ensure the callback is in a group chat
+    if query.message.chat.type not in ('group', 'supergroup'):
+        return
+    
+    if int(userid) != query.from_user.id:
+        return await query.answer(
+            f"⚠️ Hello {query.from_user.first_name},\nThis is not your movie request,\nRequest your own...",
+            show_alert=True,
+        )
 
     _, search, key = query.data.split("#")
 
@@ -323,16 +331,17 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
-    _, quality, search, key = query.data.split("#")
+    _, quality, search, key, userid = query.data.split("#")
 
     search = search.replace("_", " ")
-    req = query.from_user.id
-    chat_id = query.message.chat.id
-    message = query.message
-    _, userid = query.data.split("#")
-    if int(userid) not in [query.from_user.id, 0]:
+
+    # Ensure the callback is in a group chat
+    if query.message.chat.type not in ('group', 'supergroup'):
+        return
+
+    if int(userid) != query.from_user.id:
         return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            f"⚠️ Hello {query.from_user.first_name},\nThis is not your movie request,\nRequest your own...",
             show_alert=True,
         )
 
