@@ -239,9 +239,9 @@ async def next_page(bot, query):
                )
     btn.insert(1,
                [
-                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
     btn.insert(2,
@@ -290,16 +290,7 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
-    chat = await query.message.get_chat()
-    
-    if not isinstance(chat, (types.Chat, types.Channel)):
-        return
 
-    if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
 
     _, search, key = query.data.split("#")
 
@@ -330,11 +321,6 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
-    chat = await query.message.get_chat()
-    
-    if not isinstance(chat, (types.Chat, types.Channel)):
-        # If it's a user's private chat with the bot, do nothing
-        return
     _, quality, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
@@ -342,11 +328,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     chat_id = query.message.chat.id
     message = query.message
 
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+
 
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
@@ -474,7 +456,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
@@ -483,16 +465,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
-    chat = await query.message.get_chat()
-    
-    if not isinstance(chat, (types.Chat, types.Channel)):
-        return
 
-    if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
 
     _, search, key = query.data.split("#")
 
@@ -516,29 +489,20 @@ async def languages_cb_handler(client: Client, query: CallbackQuery):
     )
     req = query.from_user.id
     offset = 0
-    btn.append([InlineKeyboardButton(text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻", callback_data=f"next_{req}_{key}_{offset}")])
+    btn.append([InlineKeyboardButton(text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻", callback_data=f"next_{req}_{key}_{offset}")])
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
 
 @Client.on_callback_query(filters.regex(r"^fl#"))
 async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
-    chat = await query.message.get_chat()
-    
-    if not isinstance(chat, (types.Chat, types.Channel)):
-        # If it's a user's private chat with the bot, do nothing
-        return
     _, lang, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+    
 
     search = f"{search} {lang}"
 
@@ -664,7 +628,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
@@ -675,16 +639,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
-    chat = await query.message.get_chat()
-    
-    if not isinstance(chat, (types.Chat, types.Channel)):
-        return
 
-    if int(query.from_user.id) != query.message.reply_to_message.from_user.id:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
 
     _, search, key = query.data.split("#")
 
@@ -715,11 +670,6 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    chat = await query.message.get_chat()
-    
-    if not isinstance(chat, (types.Chat, types.Channel)):
-        # If it's a user's private chat with the bot, do nothing
-        return
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
@@ -727,11 +677,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     chat_id = query.message.chat.id
     message = query.message
 
-    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
-        return await query.answer(
-            f"⚠️ ʜᴇʟʟᴏ{query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
-            show_alert=True,
-        )
+   
 
     # Construct the search query with the selected season
     search = f"{search} {season}"
@@ -860,7 +806,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
@@ -1949,9 +1895,9 @@ async def auto_filter(client, msg, spoll=False):
                )
     btn.insert(1,
                [
-                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ​", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
+                   InlineKeyboardButton("Qᴜᴀʟɪᴛʏ", callback_data=f"qualities#{search.replace(' ', '_')}#{key}"),
                    InlineKeyboardButton("ꜱᴇᴀꜱᴏɴꜱ", callback_data=f"seasons#{search.replace(' ', '_')}#{key}"),
-                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs​", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
+                   InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
     btn.insert(2,
@@ -2388,3 +2334,4 @@ async def global_filters(client, message, text=False):
                 break
     else:
         return False
+        
