@@ -460,8 +460,31 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
+        items_per_page = 10  # You can adjust this as needed
+    total_pages = (len(files) + items_per_page - 1) // items_per_page
 
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+    # Generate "Page" buttons dynamically
+    page_buttons = [
+        InlineKeyboardButton(
+            text=f"Page {page_num}",
+            callback_data=f"page_{req}_{key}_{page_num}"
+        )
+        for page_num in range(1, total_pages + 1)
+    ]
+
+    # Add "Back" and "Next" buttons as well
+    page_buttons.insert(0, InlineKeyboardButton(text="⬅️ Back", callback_data=f"back_{req}_{key}_{offset}"))
+    page_buttons.append(InlineKeyboardButton(text="Next ➡️", callback_data=f"next_{req}_{key}_{offset}"))
+
+    # Add the page buttons to your existing btn list
+    btn.extend(page_buttons)
+
+    # Create InlineKeyboardMarkup with the updated btn list
+    markup = InlineKeyboardMarkup(btn)
+
+    # Edit the message with the updated markup
+    await query.edit_message_reply_markup(markup)
+
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
