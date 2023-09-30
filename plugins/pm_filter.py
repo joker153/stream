@@ -336,6 +336,17 @@ async def next_quality_cb_handler(client: Client, query: CallbackQuery):
     next_quality_name = quality_names[next_index]
     next_quality_value = QUALITIES[next_quality_name]
 
+    # Construct the search query with the next quality
+    next_search = f"{search} {next_quality_name}"
+
+    # Check if there are files at the next quality level
+    files, _, _ = await get_search_results(next_search, max_results=10)
+    files = [file for file in files if re.search(next_quality_name, file.file_name, re.IGNORECASE)]
+
+    if not files:
+        # Show an alert message if there are no files at the next quality level
+        return await query.answer("🚫 No Files Were Found at the Next Quality Level 🚫", show_alert=True)
+
     # Update the callback data with the next quality
     next_callback_data = f"quality#{next_quality_value}#{search}#{key}"
 
@@ -356,37 +367,39 @@ async def next_quality_cb_handler(client: Client, query: CallbackQuery):
         ),
     ])
 
-    # Add the "Next" and "Pages" buttons (similar to previous code)
-    try:
-        # Add the "Next" and "Pages" buttons
-        if offset > 0:
-            btn.append([
-                InlineKeyboardButton(
-                    text="⏮️ Previous", callback_data=f"next_{query.from_user.id}_{key}_{offset - 10}"
-                ),
-                InlineKeyboardButton(
-                    text=f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
-                    callback_data="pages"
-                ),
-                InlineKeyboardButton(
-                    text="⏭️ Next", callback_data=f"next_{query.from_user.id}_{key}_{offset + 10}"
-                ),
-            ])
-        else:
-            btn.append([
-                InlineKeyboardButton(
-                    text=f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
-                    callback_data="pages"
-                ),
-                InlineKeyboardButton(
-                    text="⏭️ Next", callback_data=f"next_{query.from_user.id}_{key}_{offset + 10}"
-                ),
-            ])
-    except Exception as e:
-        print(str(e))
+    # Add the "Next Quality" button
+    btn.append([
+        InlineKeyboardButton(
+            text="➡️ Next Quality", callback_data=f"next_quality#{next_quality_name}#{search}#{key}"
+        ),
+    ])
 
     # Edit the message with the updated quality button and navigation buttons
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+
+@Client.on_callback_query(filters.regex(r"^quality#"))
+async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
+    _, quality, search, key = query.data.split("#")
+
+    # ... (existing code)
+
+    # Add the "Back" button
+    btn.insert(0, [
+        InlineKeyboardButton(
+            f' ↩️ Back to Files ', callback_data=f"next_{query.from_user.id}_{key}_0"
+        ),
+    ])
+
+    # Add the "Next Quality" button
+    btn.append([
+        InlineKeyboardButton(
+            text="➡️ Next Quality", callback_data=f"next_quality#{quality}#{search}#{key}"
+        ),
+    ])
+
+    # Edit the message with the updated quality button and "Next Quality" button
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+
 
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
