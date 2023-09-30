@@ -156,13 +156,9 @@ async def pm_text(bot, message):
 
 @Client.on_callback_query(filters.regex(r"^next"))
 async def next_page(bot, query):
-    data_parts = query.data.split("_")
-
-    # Check if there are enough parts to unpack
-    if len(data_parts) < 4:
+    ident, req, key, offset = query.data.split("_")
+    if int(req) not in [query.from_user.id, 0]:
         return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
-
-    ident, req, key, offset = data_parts
     try:
         offset = int(offset)
     except:
@@ -321,55 +317,7 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
     btn.append([InlineKeyboardButton(text="↺ Back to Files  ↻", callback_data=f"next_{req}_{key}_{offset}")])
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
-    
-@Client.on_callback_query(filters.regex(r"^next_quality#"))
-async def next_quality_cb_handler(client: Client, query: CallbackQuery):
-    _, current_quality, search, key = query.data.split("#")
 
-    # Find the index of the current quality in your list of qualities
-    quality_names = [quality_name for quality_name, _ in QUALITIES.items()]
-    current_index = quality_names.index(current_quality)
-
-    # Calculate the index of the next quality (cycling back to the first if at the end)
-    next_index = (current_index + 1) % len(QUALITIES)
-    next_quality_name = quality_names[next_index]
-    next_quality_value = QUALITIES[next_quality_name]
-
-    # Construct the search query with the next quality
-    next_search = f"{search} {next_quality_name}"
-
-    # Check if there are files at the next quality level
-    files, _, _ = await get_search_results(next_search, max_results=10)
-    files = [file for file in files if re.search(next_quality_name, file.file_name, re.IGNORECASE)]
-
-    if not files:
-        # Show an alert message if there are no files at the next quality level
-        return await query.answer("🚫 No Files Were Found at the Next Quality Level 🚫", show_alert=True)
-
-    # Update the callback data with the next quality
-    next_callback_data = f"quality#{next_quality_value}#{search}#{key}"
-
-    # Edit the message with the updated quality button
-    btn = [
-        [
-            InlineKeyboardButton(
-                text=next_quality_name,
-                callback_data=next_callback_data
-            ),
-        ]
-    ]
-
-    # Add the "Next Quality" button
-    btn.append([
-        InlineKeyboardButton(
-            text="➡️ Next Quality", callback_data=f"next_quality#{next_quality_name}#{search}#{key}"
-        ),
-    ])
-
-    # Edit the message with the updated quality button
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
-
-# Remove the existing "qualities" callback
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
@@ -380,10 +328,12 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     chat_id = query.message.chat.id
     message = query.message
 
+
+
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
 
-    files, offset, total = await get_search_results(search, max_results=10)  # Calculate the total number of files
+    files, offset, _ = await get_search_results(search, max_results=10)
     files = [file for file in files if re.search(quality, file.file_name, re.IGNORECASE)]
 
     if not files:
@@ -454,18 +404,64 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             ]
             for file in files
         ]
+    try:
+        if settings['auto_delete']:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
 
-    # Add the "Next Quality" button
+        else:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+
+    except KeyError:
+        grpid = await active_connection(str(message.from_user.id))
+        await save_group_settings(grpid, 'auto_delete', True)
+        settings = await get_settings(message.chat.id)
+        if settings['auto_delete']:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+
+        else:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+
+    btn.insert(0, [
+        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+    ])
+    offset = 0
+
     btn.append([
         InlineKeyboardButton(
-            text="➡️ Next Quality", callback_data=f"next_quality#{quality}#{search}#{key}"
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
 
-    # Edit the message with the updated quality button
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
-
-
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
