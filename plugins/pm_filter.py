@@ -460,7 +460,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
-        items_per_page = 10  # You can adjust this as needed
+    items_per_page = 10  # You can adjust this as needed
     total_pages = (len(files) + items_per_page - 1) // items_per_page
 
     # Generate "Page" buttons dynamically
