@@ -91,9 +91,9 @@ REQ_CHANNEL = int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL)
 JOIN_REQS_DB = environ.get("JOIN_REQS_DB", DATABASE_URI)
 
 #url links
-SHORTLINK_URL = environ.get('SHORTLINK_URL', '')
-SHORTLINK_API = environ.get('SHORTLINK_API', '')
-IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', False))
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'watchxstream.com')
+SHORTLINK_API = environ.get('SHORTLINK_API', 'cb0311139a7c50801231239487ce1846cfac2c21')
+IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', True))
 
 #Openai
 AI = is_enabled((environ.get("AI","True")), True)
