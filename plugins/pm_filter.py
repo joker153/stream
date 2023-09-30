@@ -331,7 +331,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected quality
     search = f"{search} {quality}"
 
-    files, offset, _ = await get_search_results(search, max_results=10)
+    files, offset, total = await get_search_results(search, max_results=10)  # Calculate the total number of files
     files = [file for file in files if re.search(quality, file.file_name, re.IGNORECASE)]
 
     if not files:
@@ -402,14 +402,14 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             ]
             for file in files
         ]
-    
+
     # Add the "Back" button
     btn.insert(0, [
         InlineKeyboardButton(
             f' ↩️ Back to Files ', callback_data=f"next_{req}_{key}_0"
         ),
     ])
-    
+
     # Add the "Next" and "Pages" buttons
     try:
         if offset > 0:
@@ -437,7 +437,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             ])
     except Exception as e:
         print(str(e))
-    
+
     try:
         if settings['auto_delete']:
             btn.insert(
@@ -479,20 +479,21 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
-    
+
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 0
-    
+
     btn.append([
         InlineKeyboardButton(
             text="↺ Back to Files ↻",
             callback_data=f"next_{req}_{key}_{offset}"
         ),
     ])
-    
+
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+
 
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
