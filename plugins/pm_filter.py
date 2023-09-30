@@ -155,7 +155,6 @@ async def pm_text(bot, message):
 
 
 @Client.on_callback_query(filters.regex(r"^next"))
-@Client.on_callback_query(filters.regex(r"^next"))
 async def next_page(bot, query):
     data_parts = query.data.split("_")
 
@@ -360,13 +359,6 @@ async def next_quality_cb_handler(client: Client, query: CallbackQuery):
         ]
     ]
 
-    # Add the "Back" button
-    btn.insert(0, [
-        InlineKeyboardButton(
-            f' ↩️ Back to Files ', callback_data=f"next_{query.from_user.id}_{key}_0"
-        ),
-    ])
-
     # Add the "Next Quality" button
     btn.append([
         InlineKeyboardButton(
@@ -374,33 +366,10 @@ async def next_quality_cb_handler(client: Client, query: CallbackQuery):
         ),
     ])
 
-    # Edit the message with the updated quality button and navigation buttons
+    # Edit the message with the updated quality button
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
-@Client.on_callback_query(filters.regex(r"^quality#"))
-async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
-    _, quality, search, key = query.data.split("#")
-
-    # ... (existing code)
-
-    # Add the "Back" button
-    btn.insert(0, [
-        InlineKeyboardButton(
-            f' ↩️ Back to Files ', callback_data=f"next_{query.from_user.id}_{key}_0"
-        ),
-    ])
-
-    # Add the "Next Quality" button
-    btn.append([
-        InlineKeyboardButton(
-            text="➡️ Next Quality", callback_data=f"next_quality#{quality}#{search}#{key}"
-        ),
-    ])
-
-    # Edit the message with the updated quality button and "Next Quality" button
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
-
-
+# Remove the existing "qualities" callback
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
@@ -486,13 +455,6 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             for file in files
         ]
 
-    # Add the "Back" button
-    btn.insert(0, [
-        InlineKeyboardButton(
-            f' ↩️ Back to Files ', callback_data=f"next_{query.from_user.id}_{key}_0"
-        ),
-    ])
-
     # Add the "Next Quality" button
     btn.append([
         InlineKeyboardButton(
@@ -500,36 +462,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
         ),
     ])
 
-    # Add the "Next" and "Pages" buttons (similar to previous code)
-    try:
-        # Add the "Next" and "Pages" buttons
-        if offset > 0:
-            btn.append([
-                InlineKeyboardButton(
-                    text="⏮️ Previous", callback_data=f"next_{query.from_user.id}_{key}_{offset - 10}"
-                ),
-                InlineKeyboardButton(
-                    text=f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
-                    callback_data="pages"
-                ),
-                InlineKeyboardButton(
-                    text="⏭️ Next", callback_data=f"next_{query.from_user.id}_{key}_{offset + 10}"
-                ),
-            ])
-        else:
-            btn.append([
-                InlineKeyboardButton(
-                    text=f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
-                    callback_data="pages"
-                ),
-                InlineKeyboardButton(
-                    text="⏭️ Next", callback_data=f"next_{query.from_user.id}_{key}_{offset + 10}"
-                ),
-            ])
-    except Exception as e:
-        print(str(e))
-
-    # Edit the message with the updated quality button and navigation buttons
+    # Edit the message with the updated quality button
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
 
