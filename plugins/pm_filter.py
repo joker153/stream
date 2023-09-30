@@ -402,34 +402,27 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             ]
             for file in files
         ]
-
+    
     # Add the "Back" button
     btn.insert(0, [
-        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
-    ])
-    
-    offset = 0
-    
-    # Add the "Back" button
-    btn.append([
         InlineKeyboardButton(
-            text="↩️  Back", callback_data=f"next_{req}_{key}_0"
+            f' ↩️ Back to Files ', callback_data=f"next_{req}_{key}_0"
         ),
     ])
-
+    
+    # Add the "Next" and "Pages" buttons
     try:
-        # Add the "Next" and "Pages" buttons
         if offset > 0:
             btn.append([
                 InlineKeyboardButton(
-                    text="⏮️  Previous", callback_data=f"next_{req}_{key}_{offset - 10}"
+                    text="⏮️ Previous", callback_data=f"next_{req}_{key}_{offset - 10}"
                 ),
                 InlineKeyboardButton(
                     text=f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
                     callback_data="pages"
                 ),
                 InlineKeyboardButton(
-                    text="⏭️  Next", callback_data=f"next_{req}_{key}_{offset + 10}"
+                    text="⏭️ Next", callback_data=f"next_{req}_{key}_{offset + 10}"
                 ),
             ])
         else:
@@ -439,12 +432,66 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                     callback_data="pages"
                 ),
                 InlineKeyboardButton(
-                    text="⏭️  Next", callback_data=f"next_{req}_{key}_{offset + 10}"
+                    text="⏭️ Next", callback_data=f"next_{req}_{key}_{offset + 10}"
                 ),
             ])
     except Exception as e:
         print(str(e))
-
+    
+    try:
+        if settings['auto_delete']:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+        else:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+    except KeyError:
+        grpid = await active_connection(str(message.from_user.id))
+        await save_group_settings(grpid, 'auto_delete', True)
+        settings = await get_settings(message.chat.id)
+        if settings['auto_delete']:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+        else:
+            btn.insert(
+                0,
+                [
+                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+                ],
+            )
+    
+    btn.insert(0, [
+        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+    ])
+    offset = 0
+    
+    btn.append([
+        InlineKeyboardButton(
+            text="↺ Back to Files ↻",
+            callback_data=f"next_{req}_{key}_{offset}"
+        ),
+    ])
+    
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
 
