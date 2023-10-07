@@ -452,9 +452,13 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
+    files, n_offset, total = await get_search_results(search, offset=offset, filter=True)
+    try:
+        n_offset = int(n_offset)
+    except:
+        n_offset = 0
     if 0 < offset <= 10:
         off_set = 0
-        n_offset = 0
     elif offset == 0:
         off_set = None
     else:
