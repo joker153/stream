@@ -452,14 +452,21 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
     ])
-    offset = 0
-
-    btn.append([
-        InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-            callback_data=f"next_{req}_{key}_{offset}"
-        ),
-    ])
+    if 0 < offset <= 10:
+        off_set = 0
+    elif offset == 0:
+        off_set = None
+    else:
+        off_set = offset - 10
+    if n_offset == 0:
+        btn.append(
+            [
+                InlineKeyboardButton("⌫ 𝐁𝐀𝐂𝐊", callback_data=f"next_{req}_{key}_{off_set}"),
+                InlineKeyboardButton(f"𝐏𝐀𝐆𝐄 {math.ceil(int(offset) / 7) + 1} / {math.ceil(total / 7)}",
+                                     callback_data="pages"),
+                InlineKeyboardButton("𝐍𝐄𝐗𝐓 ⌦", callback_data=f"next_{req}_{key}_{n_offset}")
+            ],
+        )
 
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
