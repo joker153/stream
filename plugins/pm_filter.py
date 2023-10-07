@@ -454,6 +454,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     ])
     if 0 < offset <= 10:
         off_set = 0
+        n_offset = 0
     elif offset == 0:
         off_set = None
     else:
