@@ -756,20 +756,9 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     search = search.replace("_", " ")
     search = f"{search} {episode}"
 
-    # Generate episode buttons dynamically for the selected season
-    episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            ),
-        ]
-        for episode_name, episode_value in EPISODES.items()
-    ]
+    # Filter files based on the selected episode
+    files = [file for file in matching_files if any(value.lower() in file.file_name.lower() for value in EPISODES[episode_name])]
 
-    files, offset, _ = await get_search_results(search, max_results=10)
-    files = [file for file in files if any(value.lower() in file.file_name.lower() for value in episode_values)]
-    
     if not files:
         await query.answer("🚫 No Files Were Found 🚫", show_alert=1)
         return
@@ -903,7 +892,6 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
-
 
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
