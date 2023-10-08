@@ -695,7 +695,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, search, key = query.data.split("#")
+    _, season, episode, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
     episode_values = list(EPISODES.values())
