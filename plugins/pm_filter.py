@@ -695,16 +695,27 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, episode, search, key = query.data.split("#")
+    _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
-    episode_values = list(EPISODES.values())
-    matching_files = []
-    for values in episode_values:
-        for value in values:
-            if episode.lower() in value.lower():
-                 matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
 
+    # Extract the selected episode from the query data
+    selected_episode = None
+    for episode_name, episode_values in EPISODES.items():
+        for value in episode_values:
+            if value.lower() in query.data.lower():
+                selected_episode = episode_name
+                break
+        if selected_episode:
+            break
+
+    if selected_episode:
+        # You can now use 'selected_episode' in your code
+        print(f"Selected episode: {selected_episode}")
+    else:
+        print("No episode selected.")
+
+    # The rest of your code remains the same...
     # Construct the search query with the selected season
     search = f"{search} {season}"
 
@@ -732,6 +743,22 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
 
+    # Extract the selected episode from the query data
+    selected_episode = None
+    for episode_name, episode_values in EPISODES.items():
+        for value in episode_values:
+            if value.lower() in query.data.lower():
+                selected_episode = episode_name
+                break
+        if selected_episode:
+            break
+
+    if selected_episode:
+        # You can now use 'selected_episode' in your code
+        print(f"Selected episode: {selected_episode}")
+    else:
+        print("No episode selected.")
+
     # Handle the selected episode here
     # You can add your logic to perform actions based on the selected episode
 
@@ -747,7 +774,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Construct the search query with the selected season
     search = search.replace("_", " ")
-    search = f"{search} {episode}"
+    search = f"{search} {selected_episode}"  # Use 'selected_episode' here
 
     # Generate episode buttons dynamically for the selected season
     episode_buttons = [
