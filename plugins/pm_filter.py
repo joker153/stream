@@ -61,34 +61,33 @@ QUALITIES = {
 }
 
 EPISODES = {
-     "ᴇᴘɪꜱᴏᴅᴇ 1": "E01",
-    "ᴇᴘɪꜱᴏᴅᴇ 2": "E02",
-    "ᴇᴘɪꜱᴏᴅᴇ 3": "E03",
-    "ᴇᴘɪꜱᴏᴅᴇ 4": "E04",
-    "ᴇᴘɪꜱᴏᴅᴇ 5": "E05",
-    "ᴇᴘɪꜱᴏᴅᴇ 6": "E06",
-    "ᴇᴘɪꜱᴏᴅᴇ 7": "E07",
-    "ᴇᴘɪꜱᴏᴅᴇ 8": "E08",
-    "ᴇᴘɪꜱᴏᴅᴇ 9": "E09",
-    "ᴇᴘɪꜱᴏᴅᴇ 10": "E10",
-    "ᴇᴘɪꜱᴏᴅᴇ 11": "E11",
-    "ᴇᴘɪꜱᴏᴅᴇ 12": "E12",
-    "ᴇᴘɪꜱᴏᴅᴇ 13": "E13",
-    "ᴇᴘɪꜱᴏᴅᴇ 14": "E14",
-    "ᴇᴘɪꜱᴏᴅᴇ 15": "E15",
-    "ᴇᴘɪꜱᴏᴅᴇ 16": "E16",
-    "ᴇᴘɪꜱᴏᴅᴇ 17": "E17",
-    "ᴇᴘɪꜱᴏᴅᴇ 18": "E18",
-    "ᴇᴘɪꜱᴏᴅᴇ 19": "E19",
-    "ᴇᴘɪꜱᴏᴅᴇ 20": "E20",
-    "ᴇᴘɪꜱᴏᴅᴇ 21": "E21",
-    "ᴇᴘɪꜱᴏᴅᴇ 22": "E22",
-    "ᴇᴘɪꜱᴏᴅᴇ 23": "E23",
-    "ᴇᴘɪꜱᴏᴅᴇ 24": "E24",
-    "ᴇᴘɪꜱᴏᴅᴇ 25": "E25",
-    "ᴇᴘɪꜱᴏᴅᴇ 26": "E26"
+    "ᴇᴘɪꜱᴏᴅᴇ 1": ["E01", "ep01", "e01", "e1"],
+    "ᴇᴘɪꜱᴏᴅᴇ 2": ["E02", "ep02", "e02", "e2"],
+    "ᴇᴘɪꜱᴏᴅᴇ 3": ["E03", "ep03", "e03", "e3"],
+    "ᴇᴘɪꜱᴏᴅᴇ 4": ["E04", "ep04", "e04", "e4"],
+    "ᴇᴘɪꜱᴏᴅᴇ 5": ["E05", "ep05", "e05", "e5"],
+    "ᴇᴘɪꜱᴏᴅᴇ 6": ["E06", "ep06", "e06", "e6"],
+    "ᴇᴘɪꜱᴏᴅᴇ 7": ["E07", "ep07", "e07", "e7"],
+    "ᴇᴘɪꜱᴏᴅᴇ 8": ["E08", "ep08", "e08", "e8"],
+    "ᴇᴘɪꜱᴏᴅᴇ 9": ["E09", "ep09", "e09", "e9"],
+    "ᴇᴘɪꜱᴏᴅᴇ 10": ["E10", "ep10", "e10", "e10"],
+    "ᴇᴘɪꜱᴏᴅᴇ 11": ["E11", "ep11", "e11", "e11"],
+    "ᴇᴘɪꜱᴏᴅᴇ 12": ["E12", "ep12", "e12", "e12"],
+    "ᴇᴘɪꜱᴏᴅᴇ 13": ["E13", "ep13", "e13", "e13"],
+    "ᴇᴘɪꜱᴏᴅᴇ 14": ["E14", "ep14", "e14", "e14"],
+    "ᴇᴘɪꜱᴏᴅᴇ 15": ["E15", "ep15", "e15", "e15"],
+    "ᴇᴘɪꜱᴏᴅᴇ 16": ["E16", "ep16", "e16", "e16"],
+    "ᴇᴘɪꜱᴏᴅᴇ 17": ["E17", "ep17", "e17", "e17"],
+    "ᴇᴘɪꜱᴏᴅᴇ 18": ["E18", "ep18", "e18", "e18"],
+    "ᴇᴘɪꜱᴏᴅᴇ 19": ["E19", "ep19", "e19", "e19"],
+    "ᴇᴘɪꜱᴏᴅᴇ 20": ["E20", "ep20", "e20", "e20"],
+    "ᴇᴘɪꜱᴏᴅᴇ 21": ["E21", "ep21", "e21", "e21"],
+    "ᴇᴘɪꜱᴏᴅᴇ 22": ["E22", "ep22", "e22", "e22"],
+    "ᴇᴘɪꜱᴏᴅᴇ 23": ["E23", "ep23", "e23", "e23"],
+    "ᴇᴘɪꜱᴏᴅᴇ 24": ["E24", "ep24", "e24", "e24"],
+    "ᴇᴘɪꜱᴏᴅᴇ 25": ["E25", "ep25", "e25", "e25"],
+    "ᴇᴘɪꜱᴏᴅᴇ 26": ["E26", "ep26", "e26", "e26"]
 }
-
     
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
 async def fil_mod(client, message):
@@ -720,7 +719,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 ]
 
     # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search.replace(' ', '_')}#{key}")])
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
@@ -744,7 +743,14 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Construct the search query with the selected season
     search = search.replace("_", " ")
-    search = f"{search} {episode}"
+
+# Search for episodes with different values, case-insensitive
+episode_values = list(EPISODES.values())
+matching_files = []
+for values in episode_values:
+    for value in values:
+        if episode.lower() in value.lower():
+            matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
 
     # Generate episode buttons dynamically for the selected season
     episode_buttons = [
@@ -877,23 +883,21 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     ])
     offset = 0
 
-    episode_names = list(EPISODES.keys())
-    episode_values = list(EPISODES.values())
-    episode_buttons = [
-    [
+    btn.append([
         InlineKeyboardButton(
-            text=episode_name,
-            callback_data=f"episode#{episode_value}#{search}#{key}"
-        )
-        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
-    ]
-    for i in range(0, len(episode_names), 3)
-]
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            callback_data=f"next_{req}_{key}_{offset}"
+        ),
+    ])
 
+
+
+    # Add an option to go back to the seasons
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
