@@ -720,7 +720,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 ]
 
     # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search.replace(' ', '_')}#{key}")])
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
@@ -877,21 +877,23 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     ])
     offset = 0
 
-    btn.append([
+    episode_names = list(EPISODES.keys())
+    episode_values = list(EPISODES.values())
+    episode_buttons = [
+    [
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-            callback_data=f"next_{req}_{key}_{offset}"
-        ),
-    ])
+            text=episode_name,
+            callback_data=f"episode#{episode_value}#{search}#{key}"
+        )
+        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+    ]
+    for i in range(0, len(episode_names), 3)
+]
 
-
-
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
