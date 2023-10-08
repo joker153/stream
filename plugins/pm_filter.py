@@ -698,26 +698,27 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
-    req = query.from_user.id
-    chat_id = query.message.chat.id
-    message = query.message
-
-    # Construct the search query with the selected season
-    search = f"{search} {season}"
-
-    # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
-    episode_values = list(EPISODES.values())
+    matching_files = []
+
+    for episode_name, episode_values in EPISODES.items():
+        for value in episode_values:
+            if value.lower() in episode_name.lower():
+                # Episode match found, add files to matching_files
+                matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
+
+    # The rest of your code remains unchanged...
+    # Generate episode buttons dynamically for the selected season
     episode_buttons = [
-    [
-        InlineKeyboardButton(
-            text=episode_name,
-            callback_data=f"episode#{episode_value}#{search}#{key}"
-        )
-        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        [
+            InlineKeyboardButton(
+                text=episode_name,
+                callback_data=f"episode#{episode_value}#{search}#{key}"
+            )
+            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        ]
+        for i in range(0, len(episode_names), 3)
     ]
-    for i in range(0, len(episode_names), 3)
-]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
@@ -728,6 +729,15 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
+
+    search = search.replace("_", " ")
+    matching_files = []
+
+    for episode_name, episode_values in EPISODES.items():
+        for value in episode_values:
+            if value.lower() in episode_name.lower():
+                # Episode match found, add files to matching_files
+                matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
 
     # Handle the selected episode here
     # You can add your logic to perform actions based on the selected episode
