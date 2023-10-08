@@ -702,7 +702,8 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     message = query.message
 
     # Construct the search query with the selected season
-    search = f"{search}"
+    search = f"{search} {season}"
+
     # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
@@ -718,7 +719,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 ]
 
     # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search.replace(' ', '_')}#{key}")])
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
@@ -731,7 +732,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     # You can add your logic to perform actions based on the selected episode
 
     # For example, you can send a message with the selected episode
-    await query.answer(f"SEARCHING........ {episode} of {search}")
+    await query.answer(f"You selected {episode} of {search}")
 
     # You can also go back to the seasons or perform other actions as needed
     req = query.from_user.id
@@ -882,6 +883,10 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         ),
     ])
 
+
+
+    # Add an option to go back to the seasons
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     
     # Edit the message to show episode buttons
