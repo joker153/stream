@@ -723,6 +723,19 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    
+@Client.on_callback_query(filters.regex(r"^back_to_episodes#"))
+async def back_to_episodes_cb_handler(client: Client, query: CallbackQuery):
+    _, search, key = query.data.split("#")
+
+    # Handle going back to the episodes list here
+    # You can use the search and key values to construct the episode list and buttons
+
+    # Generate episode buttons dynamically using search and key
+    episode_buttons = generate_episode_buttons(page, search, key)
+
+    # Edit the message to show episode buttons with the updated page
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
@@ -877,11 +890,11 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     offset = 0
 
     btn.append([
-        InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-            callback_data=f"⬅ Back to Episodes", callback_data=f"episodes#{search}#{key}"
-        ),
-    ])
+    InlineKeyboardButton(
+        text="⬅ Back to Episodes",
+        callback_data=f"back_to_episodes#{search}#{key}"  # Unique callback data
+    ),
+])
 
 
 
