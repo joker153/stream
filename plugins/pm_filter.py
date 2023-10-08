@@ -739,17 +739,28 @@ def generate_episode_buttons(page, search, key):
 
 @Client.on_callback_query(filters.regex(r"^(prev_episode|next_episode)#"))
 async def handle_page_pagination(client: Client, query: CallbackQuery):
-    _, page_action, search, key = query.data.split("#")
+    _, page_action, page, search, key = query.data.split("#")
+    page = int(page)
 
-    if page_action == "prev_page":
-        # Handle previous page action
-    elif page_action == "next_page":
-
+    if page_action == "prev_episode":
+        page -= 1
+    elif page_action == "next_episode":
+        page += 1
 
     episode_buttons = generate_episode_buttons(page, search, key)
 
     # Edit the message to show episode buttons with the updated page
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
+
+# ... Your other code ...
+
+# Function to generate episode buttons for a specific page
+def generate_episode_buttons(page, search, key):
+    # Your pagination logic here
+    # Calculate start_idx and end_idx based on the page
+    # Create episode_buttons accordingly
+    # Make sure to return a list of lists (2D list) for InlineKeyboardMarkup
+    pass
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
