@@ -738,14 +738,13 @@ def generate_episode_buttons(page, search, key):
     return episode_buttons
 
 @Client.on_callback_query(filters.regex(r"^(prev_episode|next_episode)#"))
-async def handle_episode_pagination(client: Client, query: CallbackQuery):
-    _, page_action, page, search, key = query.data.split("#")
-    page = int(page)
+async def handle_page_pagination(client: Client, query: CallbackQuery):
+    _, page_action, search, key = query.data.split("#")
 
-    if page_action == "prev_episode":
-        page -= 1
-    elif page_action == "next_episode":
-        page += 1
+    if page_action == "prev_page":
+        # Handle previous page action
+    elif page_action == "next_page":
+
 
     episode_buttons = generate_episode_buttons(page, search, key)
 
