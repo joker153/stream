@@ -60,7 +60,7 @@ QUALITIES = {
 }
 
 EPISODES = {
-    "S01": ["Episode 1", "Episode 2", "Episode 3"],  # Define episodes for each season
+    "S01": ["E01", "Episode 2", "Episode 3"],  # Define episodes for each season
     "S02": ["Episode 1", "Episode 2", "Episode 3"],
     "S03": ["Episode 1", "Episode 2", "Episode 3"],
     # Add episodes for other seasons
