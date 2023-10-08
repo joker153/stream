@@ -738,7 +738,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     ]
 
     files, offset, _ = await get_search_results(search, max_results=10)
-    files = [file for file in files if re.search(lang, file.file_name, re.IGNORECASE)]
+    files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
     if not files:
         await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
         return
