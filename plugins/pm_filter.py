@@ -694,7 +694,16 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, search, key, current_episode = query.data.split("#")
+    data_parts = query.data.split("#")
+
+    # Check if there are enough parts to unpack
+    if len(data_parts) < 5:
+        # Handle the error, for example by sending a message to the user
+        await query.answer("Invalid callback data. Please try again.")
+        return
+
+    _, season, search, key, current_episode = data_parts
+
 
     search = search.replace("_", " ")
     req = query.from_user.id
@@ -725,8 +734,15 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
-    _, episode, search, key, current_episode = query.data.split("#")
+    data_parts = query.data.split("#")
 
+    # Check if there are enough parts to unpack
+    if len(data_parts) < 5:
+        # Handle the error, for example by sending a message to the user
+        await query.answer("Invalid callback data. Please try again.")
+        return
+
+    _, episode, search, key, current_episode = data_parts
     # Handle the selected episode here
     # You can add your logic to perform actions based on the selected episode
 
