@@ -699,7 +699,45 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
         for episode_name, episode_value in EPISODES.items()
     ]
 
-     files, offset, _ = await get_search_results(search, max_results=10)
+    # Add an option to go back to the seasons
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+
+    # Edit the message to show episode buttons
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+
+@Client.on_callback_query(filters.regex(r"^episode#"))
+async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
+    _, episode, search, key = query.data.split("#")
+
+    # Handle the selected episode here
+    # You can add your logic to perform actions based on the selected episode
+
+    # For example, you can send a message with the selected episode
+    await query.answer(f"You selected {episode} of {search}")
+
+    # You can also go back to the seasons or perform other actions as needed
+    req = query.from_user.id
+    chat_id = query.message.chat.id
+    message = query.message
+
+    # Add logic to handle the selected episode here
+
+    # Construct the search query with the selected season
+    search = search.replace("_", " ")
+    search = f"{search} {episode}"
+
+    # Generate episode buttons dynamically for the selected season
+    episode_buttons = [
+        [
+            InlineKeyboardButton(
+                text=episode_name,
+                callback_data=f"episode#{episode_value}#{search}#{key}"
+            ),
+        ]
+        for episode_name, episode_value in EPISODES.items()
+    ]
+
+    files, offset, _ = await get_search_results(search, max_results=10)
     files = [file for file in files if re.search(lang, file.file_name, re.IGNORECASE)]
     if not files:
         await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
@@ -814,49 +852,26 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
                 ],
             )
 
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    btn.insert(0, [
+        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+    ])
+    offset = 0
 
-    # Edit the message to show episode buttons
-     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
+    btn.append([
+        InlineKeyboardButton(
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            callback_data=f"next_{req}_{key}_{offset}"
+        ),
+    ])
 
-@Client.on_callback_query(filters.regex(r"^episode#"))
-async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
-    _, episode, search, key = query.data.split("#")
 
-    # Handle the selected episode here
-    # You can add your logic to perform actions based on the selected episode
-
-    # For example, you can send a message with the selected episode
-    await query.answer(f"You selected {episode} of {search}")
-
-    # You can also go back to the seasons or perform other actions as needed
-    req = query.from_user.id
-    chat_id = query.message.chat.id
-    message = query.message
-
-    # Add logic to handle the selected episode here
-
-    # Construct the search query with the selected season
-    search = search.replace("_", " ")
-    search = f"{search} {episode}"
-
-    # Generate episode buttons dynamically for the selected season
-    episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            ),
-        ]
-        for episode_name, episode_value in EPISODES.items()
-    ]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
+    
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
