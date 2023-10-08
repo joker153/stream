@@ -702,28 +702,29 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     message = query.message
 
     # Construct the search query with the selected season
-    search = f"{search} {season}"
+    # Only include the selected season in the search query
+    search = f"{season}"
 
     # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
     episode_buttons = [
-    [
-        InlineKeyboardButton(
-            text=episode_name,
-            callback_data=f"episode#{episode_value}#{search}#{key}"
-        )
-        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        [
+            InlineKeyboardButton(
+                text=episode_name,
+                callback_data=f"episode#{episode_value}#{search}#{key}"
+            )
+            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        ]
+        for i in range(0, len(episode_names), 3)
     ]
-    for i in range(0, len(episode_names), 3)
-]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
-    
+
 @Client.on_callback_query(filters.regex(r"^back_to_episodes#"))
 async def back_to_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, search, key = query.data.split("#")
@@ -774,7 +775,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     if not files:
         await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
         return
-    settings = await get_settings(message.chat.id)      
+    settings = await get_settings(message.chat.id)
     if 'is_shortlink' in settings.keys():
         ENABLE_SHORTLINK = settings['is_shortlink']
     else:
@@ -890,20 +891,19 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     offset = 0
 
     btn.append([
-    InlineKeyboardButton(
-        text="⬅ Back to Episodes",
-        callback_data=f"back_to_episodes#{search}#{key}"  # Unique callback data
-    ),
-])
-
-
+        InlineKeyboardButton(
+            text="⬅ Back to Episodes",
+            callback_data=f"back_to_episodes#{search}#{key}"  # Unique callback data
+        ),
+    ])
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
+
     
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
