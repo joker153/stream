@@ -88,18 +88,6 @@ EPISODES = {
     "ᴇᴘɪꜱᴏᴅᴇ 26": "E26"
 }
 
-# Handle episodes with "ep01" format
-for i in range(1, 26):
-    key = f"ep0{i}"
-    EPISODES[f"ᴇᴘɪꜱᴏᴅᴇ {i}"] = key
-
-for i in range(1, 26):
-    key = f"ep{i}"
-    EPISODES[f"ᴇᴘɪꜱᴏᴅᴇ {i}"] = key
-
-for i in range(1, 26):
-    key = f"e{i}"
-    EPISODES[f"ᴇᴘɪꜱᴏᴅᴇ {i}"] = key
     
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
 async def fil_mod(client, message):
@@ -706,9 +694,9 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, search, key = query.data.split("#")
+    _, season, _, key = query.data.split("#")  # Updated this line to ignore the previous search value
 
-    search = search.replace("_", " ")
+    search = season.replace("_", " ")  # Update the search variable to only include the selected season
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
@@ -744,7 +732,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     # You can add your logic to perform actions based on the selected episode
 
     # For example, you can send a message with the selected episode
-    await query.answer(f"You selected {episode} of {search}")
+    await query.answer(f"SEARCHING......{episode} of {search}")
 
     # You can also go back to the seasons or perform other actions as needed
     req = query.from_user.id
@@ -891,7 +879,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     btn.append([
         InlineKeyboardButton(
             text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-            callback_data=f"next_{req}_{key}_{offset}"
+            callback_data=f"⬅ Back to Episodes", callback_data=f"episodes#{search}#{key}"
         ),
     ])
 
