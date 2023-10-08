@@ -718,7 +718,6 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     for i in range(0, len(episode_names), 3)
 ]
 
-    ]    
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
