@@ -897,7 +897,7 @@ for values in episode_values:
 
     
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
