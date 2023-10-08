@@ -719,6 +719,12 @@ def generate_episode_buttons(page, search, key):
     episodes_per_page = 10
     start_idx = (page - 1) * episodes_per_page
     end_idx = start_idx + episodes_per_page
+
+    # Make sure EPISODES is a dictionary or list containing episode data
+    # If EPISODES is an empty list or None, handle it gracefully
+    if not EPISODES:
+        return [[]]  # Return an empty list to avoid 'NoneType' error
+
     episode_buttons = [
         [
             InlineKeyboardButton(
