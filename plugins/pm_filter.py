@@ -69,8 +69,25 @@ EPISODES = {
     "Episode 7": "E07",
     "Episode 8": "E08",
     "Episode 9": "E09",
-    "Episode 10": "E10"
+    "Episode 10": "E10",
+    "Episode 11": "E11",
+    "Episode 12": "E12",
+    "Episode 13": "E13",
+    "Episode 14": "E14",
+    "Episode 15": "E15",
+    "Episode 16": "E16",
+    "Episode 17": "E17",
+    "Episode 18": "E18",
+    "Episode 19": "E19",
+    "Episode 20": "E20",
+    "Episode 21": "E21",
+    "Episode 22": "E22",
+    "Episode 23": "E23",
+    "Episode 24": "E24",
+    "Episode 25": "E25",
+    "Episode 26": "E26"
 }
+
 
 
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
@@ -688,7 +705,20 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected season
     search = f"{search} {season}"
 
-    # Generate episode buttons dynamically for the selected season
+    # Generate episode buttons dynamically for the selected season (start with page 1)
+    episode_buttons = generate_episode_buttons(1, search, key)
+
+    # Add an option to go back to the seasons
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+
+    # Edit the message to show episode buttons
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
+
+# Function to generate episode buttons for a specific page
+def generate_episode_buttons(page, search, key):
+    episodes_per_page = 10
+    start_idx = (page - 1) * episodes_per_page
+    end_idx = start_idx + episodes_per_page
     episode_buttons = [
         [
             InlineKeyboardButton(
@@ -696,14 +726,31 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
                 callback_data=f"episode#{episode_value}#{search}#{key}"
             ),
         ]
-        for episode_name, episode_value in EPISODES.items()
+        for episode_name, episode_value in list(EPISODES.items())[start_idx:end_idx]
     ]
 
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    # Add "Next" and "Previous" buttons if necessary
+    if start_idx > 0:
+        episode_buttons.insert(0, [InlineKeyboardButton("⬅ Previous", callback_data=f"prev_episode#{page-1}#{search}#{key}")])
+    if end_idx < len(EPISODES):
+        episode_buttons.append([InlineKeyboardButton("Next ➡", callback_data=f"next_episode#{page+1}#{search}#{key}")])
 
-    # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    return episode_buttons
+
+@Client.on_callback_query(filters.regex(r"^(prev_episode|next_episode)#"))
+async def handle_episode_pagination(client: Client, query: CallbackQuery):
+    _, page_action, page, search, key = query.data.split("#")
+    page = int(page)
+
+    if page_action == "prev_episode":
+        page -= 1
+    elif page_action == "next_episode":
+        page += 1
+
+    episode_buttons = generate_episode_buttons(page, search, key)
+
+    # Edit the message to show episode buttons with the updated page
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
@@ -859,15 +906,14 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     btn.append([
         InlineKeyboardButton(
-            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
-            callback_data=f"next_{req}_{key}_{offset}"
+            text="⬅ Back to Seasons",
+            callback_data=f"seasons#{search}#{key}"
         ),
     ])
 
 
 
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    # Add an option to go back to the season
 
     
     # Edit the message to show episode buttons
