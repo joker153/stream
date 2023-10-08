@@ -705,7 +705,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
         for value in episode_values:
             if value.lower() in episode_name.lower():
                 # Episode match found, add files to matching_files
-                matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
+                matching_files.extend([file for file in files if re.search(fr"\b{value}\b", file.file_name, re.IGNORECASE)])
 
     # The rest of your code remains unchanged...
     # Generate episode buttons dynamically for the selected season
@@ -737,7 +737,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         for value in episode_values:
             if value.lower() in episode_name.lower():
                 # Episode match found, add files to matching_files
-                matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
+                matching_files.extend([file for file in files if re.search(fr"\b{value}\b", file.file_name, re.IGNORECASE)])
 
     # Handle the selected episode here
     # You can add your logic to perform actions based on the selected episode
@@ -768,17 +768,22 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     ]
 
     files, offset, _ = await get_search_results(search, max_results=10)
-    files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
+    files = [file for file in files if any(value.lower() in file.file_name.lower() for value in episode_values)]
+    
     if not files:
-        await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
+        await query.answer("🚫 No Files Were Found 🚫", show_alert=1)
         return
-    settings = await get_settings(message.chat.id)      
+
+    settings = await get_settings(message.chat.id)
+    
     if 'is_shortlink' in settings.keys():
         ENABLE_SHORTLINK = settings['is_shortlink']
     else:
         await save_group_settings(message.chat.id, 'is_shortlink', False)
         ENABLE_SHORTLINK = False
+    
     pre = 'filep' if settings['file_secure'] else 'file'
+    
     if ENABLE_SHORTLINK == True:
         btn = (
             [
@@ -837,6 +842,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
             ]
             for file in files
         ]
+
     try:
         if settings['auto_delete']:
             btn.insert(
@@ -847,7 +853,6 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
-
         else:
             btn.insert(
                 0,
@@ -857,11 +862,11 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
-
     except KeyError:
         grpid = await active_connection(str(message.from_user.id))
         await save_group_settings(grpid, 'auto_delete', True)
         settings = await get_settings(message.chat.id)
+        
         if settings['auto_delete']:
             btn.insert(
                 0,
@@ -871,7 +876,6 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
-
         else:
             btn.insert(
                 0,
@@ -899,6 +903,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+
 
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
