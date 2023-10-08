@@ -738,6 +738,7 @@ async def back_to_episodes_cb_handler(client: Client, query: CallbackQuery):
     # Edit the message to show episode buttons with the updated page
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(episode_buttons))
 
+
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
@@ -899,10 +900,6 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
-
-
-    
-    # Edit the message to show episode buttons
 await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
