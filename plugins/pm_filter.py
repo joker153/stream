@@ -61,32 +61,32 @@ QUALITIES = {
 }
 
 EPISODES = {
-    "ᴇᴘɪꜱᴏᴅᴇ 1": ["E01", "ep01", "e01", "e1"],
-    "ᴇᴘɪꜱᴏᴅᴇ 2": ["E02", "ep02", "e02", "e2"],
-    "ᴇᴘɪꜱᴏᴅᴇ 3": ["E03", "ep03", "e03", "e3"],
-    "ᴇᴘɪꜱᴏᴅᴇ 4": ["E04", "ep04", "e04", "e4"],
-    "ᴇᴘɪꜱᴏᴅᴇ 5": ["E05", "ep05", "e05", "e5"],
-    "ᴇᴘɪꜱᴏᴅᴇ 6": ["E06", "ep06", "e06", "e6"],
-    "ᴇᴘɪꜱᴏᴅᴇ 7": ["E07", "ep07", "e07", "e7"],
-    "ᴇᴘɪꜱᴏᴅᴇ 8": ["E08", "ep08", "e08", "e8"],
-    "ᴇᴘɪꜱᴏᴅᴇ 9": ["E09", "ep09", "e09", "e9"],
-    "ᴇᴘɪꜱᴏᴅᴇ 10": ["E10", "ep10", "e10", "e10"],
-    "ᴇᴘɪꜱᴏᴅᴇ 11": ["E11", "ep11", "e11", "e11"],
-    "ᴇᴘɪꜱᴏᴅᴇ 12": ["E12", "ep12", "e12", "e12"],
-    "ᴇᴘɪꜱᴏᴅᴇ 13": ["E13", "ep13", "e13", "e13"],
-    "ᴇᴘɪꜱᴏᴅᴇ 14": ["E14", "ep14", "e14", "e14"],
-    "ᴇᴘɪꜱᴏᴅᴇ 15": ["E15", "ep15", "e15", "e15"],
-    "ᴇᴘɪꜱᴏᴅᴇ 16": ["E16", "ep16", "e16", "e16"],
-    "ᴇᴘɪꜱᴏᴅᴇ 17": ["E17", "ep17", "e17", "e17"],
-    "ᴇᴘɪꜱᴏᴅᴇ 18": ["E18", "ep18", "e18", "e18"],
-    "ᴇᴘɪꜱᴏᴅᴇ 19": ["E19", "ep19", "e19", "e19"],
-    "ᴇᴘɪꜱᴏᴅᴇ 20": ["E20", "ep20", "e20", "e20"],
-    "ᴇᴘɪꜱᴏᴅᴇ 21": ["E21", "ep21", "e21", "e21"],
-    "ᴇᴘɪꜱᴏᴅᴇ 22": ["E22", "ep22", "e22", "e22"],
-    "ᴇᴘɪꜱᴏᴅᴇ 23": ["E23", "ep23", "e23", "e23"],
-    "ᴇᴘɪꜱᴏᴅᴇ 24": ["E24", "ep24", "e24", "e24"],
-    "ᴇᴘɪꜱᴏᴅᴇ 25": ["E25", "ep25", "e25", "e25"],
-    "ᴇᴘɪꜱᴏᴅᴇ 26": ["E26", "ep26", "e26", "e26"]
+     "ᴇᴘɪꜱᴏᴅᴇ 1": "E01",
+    "ᴇᴘɪꜱᴏᴅᴇ 2": "E02",
+    "ᴇᴘɪꜱᴏᴅᴇ 3": "E03",
+    "ᴇᴘɪꜱᴏᴅᴇ 4": "E04",
+    "ᴇᴘɪꜱᴏᴅᴇ 5": "E05",
+    "ᴇᴘɪꜱᴏᴅᴇ 6": "E06",
+    "ᴇᴘɪꜱᴏᴅᴇ 7": "E07",
+    "ᴇᴘɪꜱᴏᴅᴇ 8": "E08",
+    "ᴇᴘɪꜱᴏᴅᴇ 9": "E09",
+    "ᴇᴘɪꜱᴏᴅᴇ 10": "E10",
+    "ᴇᴘɪꜱᴏᴅᴇ 11": "E11",
+    "ᴇᴘɪꜱᴏᴅᴇ 12": "E12",
+    "ᴇᴘɪꜱᴏᴅᴇ 13": "E13",
+    "ᴇᴘɪꜱᴏᴅᴇ 14": "E14",
+    "ᴇᴘɪꜱᴏᴅᴇ 15": "E15",
+    "ᴇᴘɪꜱᴏᴅᴇ 16": "E16",
+    "ᴇᴘɪꜱᴏᴅᴇ 17": "E17",
+    "ᴇᴘɪꜱᴏᴅᴇ 18": "E18",
+    "ᴇᴘɪꜱᴏᴅᴇ 19": "E19",
+    "ᴇᴘɪꜱᴏᴅᴇ 20": "E20",
+    "ᴇᴘɪꜱᴏᴅᴇ 21": "E21",
+    "ᴇᴘɪꜱᴏᴅᴇ 22": "E22",
+    "ᴇᴘɪꜱᴏᴅᴇ 23": "E23",
+    "ᴇᴘɪꜱᴏᴅᴇ 24": "E24",
+    "ᴇᴘɪꜱᴏᴅᴇ 25": "E25",
+    "ᴇᴘɪꜱᴏᴅᴇ 26": "E26"
 }
 
     
@@ -665,68 +665,59 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 
 
+@Client.on_callback_query(filters.regex(r"^seasons#"))
+async def seasons_cb_handler(client: Client, query: CallbackQuery):
+    _, search, key = query.data.split("#")
+
+    btn = [
+        [
+            InlineKeyboardButton(
+                text=season_name,
+                callback_data=f"season#{season_value}#{search}#{key}"
+            ),
+        ]
+        for season_name, season_value in SEASONS.items()
+    ]
+
+    btn.insert(
+        0,
+        [
+            InlineKeyboardButton(
+                text="☟ Select Season ☟", callback_data="selectseason"
+            )
+        ],
+    )
+    req = query.from_user.id
+    offset = 0
+    btn.append([InlineKeyboardButton(text="↺ Back to Files ↻", callback_data=f"next_{req}_{key}_{offset}")])
+
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
+
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
-    matching_files = []
+    req = query.from_user.id
+    chat_id = query.message.chat.id
+    message = query.message
 
-    # Filter files based on the selected season
-    for episode_name, episode_values in EPISODES.items():
-        for value in episode_values:
-            if value.lower() in episode_name.lower():
-                matching_files.extend([file for file in files if re.search(fr"\b{value}\b", file.file_name, re.IGNORECASE)])
-
-    # Filter files that match the selected season
-    matching_files = [file for file in matching_files if re.search(fr"\b{season}\b", file.file_name, re.IGNORECASE)]
+    # Construct the search query with the selected season
+    search = f"{search} {season}"
 
     # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
     episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            )
-            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
-        ]
-        for i in range(0, len(episode_names), 3)
+    [
+        InlineKeyboardButton(
+            text=episode_name,
+            callback_data=f"episode#{episode_value}#{search}#{key}"
+        )
+        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
     ]
-
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
-
-    # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
-
-@Client.on_callback_query(filters.regex(r"^season#"))
-async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, search, key = query.data.split("#")
-
-    search = search.replace("_", " ")
-    episode_names = list(EPISODES.keys())
-    matching_files = []
-
-    for episode_name, episode_values in EPISODES.items():
-        for value in episode_values:
-            if value.lower() in episode_name.lower():
-                # Episode match found, add files to matching_files
-                matching_files.extend([file for file in files if re.search(fr"\b{value}\b", file.file_name, re.IGNORECASE)])
-
-    # The rest of your code remains unchanged...
-    # Generate episode buttons dynamically for the selected season
-    episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            )
-            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
-        ]
-        for i in range(0, len(episode_names), 3)
-    ]
+    for i in range(0, len(episode_names), 3)
+]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
@@ -737,15 +728,6 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
-
-    search = search.replace("_", " ")
-    matching_files = []
-
-    for episode_name, episode_values in EPISODES.items():
-        for value in episode_values:
-            if value.lower() in episode_name.lower():
-                # Episode match found, add files to matching_files
-                matching_files.extend([file for file in files if re.search(fr"\b{value}\b", file.file_name, re.IGNORECASE)])
 
     # Handle the selected episode here
     # You can add your logic to perform actions based on the selected episode
@@ -764,23 +746,29 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     search = search.replace("_", " ")
     search = f"{search} {episode}"
 
-    # Filter files based on the selected episode
-    files = [file for file in matching_files if any(value.lower() in file.file_name.lower() for value in EPISODES[episode_name])]
+    # Generate episode buttons dynamically for the selected season
+    episode_buttons = [
+        [
+            InlineKeyboardButton(
+                text=episode_name,
+                callback_data=f"episode#{episode_value}#{search}#{key}"
+            ),
+        ]
+        for episode_name, episode_value in EPISODES.items()
+    ]
 
+    files, offset, _ = await get_search_results(search, max_results=10)
+    files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
     if not files:
-        await query.answer("🚫 No Files Were Found 🚫", show_alert=1)
+        await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
         return
-
-    settings = await get_settings(message.chat.id)
-    
+    settings = await get_settings(message.chat.id)      
     if 'is_shortlink' in settings.keys():
         ENABLE_SHORTLINK = settings['is_shortlink']
     else:
         await save_group_settings(message.chat.id, 'is_shortlink', False)
         ENABLE_SHORTLINK = False
-    
     pre = 'filep' if settings['file_secure'] else 'file'
-    
     if ENABLE_SHORTLINK == True:
         btn = (
             [
@@ -839,7 +827,6 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
             ]
             for file in files
         ]
-
     try:
         if settings['auto_delete']:
             btn.insert(
@@ -850,6 +837,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
+
         else:
             btn.insert(
                 0,
@@ -859,11 +847,11 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
+
     except KeyError:
         grpid = await active_connection(str(message.from_user.id))
         await save_group_settings(grpid, 'auto_delete', True)
         settings = await get_settings(message.chat.id)
-        
         if settings['auto_delete']:
             btn.insert(
                 0,
@@ -873,6 +861,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
                 ],
             )
+
         else:
             btn.insert(
                 0,
@@ -895,12 +884,14 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         ),
     ])
 
+
+
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
+    
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
-
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
