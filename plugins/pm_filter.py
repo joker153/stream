@@ -664,7 +664,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 
 
-@Client.on_callback_query(filters.regex(r"^seasons#"))
+@app.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
     _, search, key = query.data.split("#")
 
@@ -692,7 +692,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
-@Client.on_callback_query(filters.regex(r"^season#"))
+@app.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
@@ -708,15 +708,15 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
     episode_buttons = [
-    [
-        InlineKeyboardButton(
-            text=episode_name,
-            callback_data=f"episode#{episode_value}#{search}#{key}"
-        )
-        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        [
+            InlineKeyboardButton(
+                text=episode_name,
+                callback_data=f"episode#{episode_value}#{search}#{key}"
+            )
+            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        ]
+        for i in range(0, len(episode_names), 3)
     ]
-    for i in range(0, len(episode_names), 3)
-]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
@@ -724,7 +724,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
-@Client.on_callback_query(filters.regex(r"^episode#"))
+@app.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
 
