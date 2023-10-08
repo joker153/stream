@@ -1,3 +1,4 @@
+#working perfectly but not back button
 # Kanged From @TroJanZheX
 # REDIRECT added https://github.com/Joelkb
 import asyncio
