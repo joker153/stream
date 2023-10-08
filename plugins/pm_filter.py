@@ -694,7 +694,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, search, key = query.data.split("#")
+    _, season, search, key, current_episode = query.data.split("#")
 
     search = search.replace("_", " ")
     req = query.from_user.id
@@ -702,30 +702,30 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     message = query.message
 
     # Construct the search query with the selected season
-    search = f"{selected_season} {search}"
+    search = f"{search}"
     # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
     episode_buttons = [
-    [
-        InlineKeyboardButton(
-            text=episode_name,
-            callback_data=f"episode#{episode_value}#{search}#{key}"
-        )
-        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        [
+            InlineKeyboardButton(
+                text=episode_name,
+                callback_data=f"episode#{episode_value}#{search}#{key}#{current_episode}"  # Include current episode
+            )
+            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
+        ]
+        for i in range(0, len(episode_names), 3)
     ]
-    for i in range(0, len(episode_names), 3)
-]
 
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    # Add a "Go back to episode" button
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Go back to Episode", callback_data=f"episode#{current_episode}#{search}#{key}#{current_episode}")])
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
-    _, episode, search, key = query.data.split("#")
+    _, episode, search, key, current_episode = query.data.split("#")
 
     # Handle the selected episode here
     # You can add your logic to perform actions based on the selected episode
@@ -740,7 +740,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Add logic to handle the selected episode here
 
-    # Construct the search query with the selected season
+    # Construct the search query with the selected season and episode
     search = search.replace("_", " ")
     search = f"{search} {episode}"
 
@@ -749,11 +749,12 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         [
             InlineKeyboardButton(
                 text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
+                callback_data=f"episode#{episode_value}#{search}#{key}#{current_episode}"  # Include current episode
             ),
         ]
         for episode_name, episode_value in EPISODES.items()
     ]
+
 
     files, offset, _ = await get_search_results(search, max_results=10)
     files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
