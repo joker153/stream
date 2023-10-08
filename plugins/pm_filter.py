@@ -88,7 +88,19 @@ EPISODES = {
     "ᴇᴘɪꜱᴏᴅᴇ 26": "E26"
 }
 
+# Handle episodes with "ep01" format
+for i in range(1, 26):
+    key = f"ep0{i}"
+    EPISODES[f"ᴇᴘɪꜱᴏᴅᴇ {i}"] = key
 
+for i in range(1, 26):
+    key = f"ep{i}"
+    EPISODES[f"ᴇᴘɪꜱᴏᴅᴇ {i}"] = key
+
+for i in range(1, 26):
+    key = f"e{i}"
+    EPISODES[f"ᴇᴘɪꜱᴏᴅᴇ {i}"] = key
+    
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
 async def fil_mod(client, message):
     mode_on = ["yes", "on", "true"]
