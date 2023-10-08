@@ -706,9 +706,8 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 
     # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
-episode_values = list(EPISODES.values())
-
-episode_buttons = [
+    episode_values = list(EPISODES.values())
+    episode_buttons = [
     [
         InlineKeyboardButton(
             text=episode_name,
@@ -719,11 +718,12 @@ episode_buttons = [
     for i in range(0, len(episode_names), 3)
 ]
 
+    ]    
     # Add an option to go back to the seasons
-episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
-await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
