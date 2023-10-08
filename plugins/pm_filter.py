@@ -59,6 +59,12 @@ QUALITIES = {
     "360p": "360"
 }
 
+EPISODES = {
+    "S01": ["Episode 1", "Episode 2", "Episode 3"],  # Define episodes for each season
+    "S02": ["Episode 1", "Episode 2", "Episode 3"],
+    "S03": ["Episode 1", "Episode 2", "Episode 3"],
+    # Add episodes for other seasons
+}
 
 
 
@@ -639,8 +645,6 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
-
-
     _, search, key = query.data.split("#")
 
     btn = [
@@ -661,12 +665,12 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
             )
         ],
     )
+
     req = query.from_user.id
     offset = 0
     btn.append([InlineKeyboardButton(text="↺ Back to Files  ↻", callback_data=f"next_{req}_{key}_{offset}")])
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
-
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
@@ -677,127 +681,47 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     chat_id = query.message.chat.id
     message = query.message
 
-   
-
     # Construct the search query with the selected season
     search = f"{search} {season}"
 
-    files, offset, _ = await get_search_results(search, max_results=10)
-    files = [file for file in files if re.search(season, file.file_name, re.IGNORECASE)]
+    # Get episodes for the selected season
+    episodes = EPISODES.get(season, [])
 
-    if not files:
-        await query.answer("🚫 No Files Were Found 🚫", show_alert=1)
+    if not episodes:
+        await query.answer("🚫 No Episodes Were Found 🚫", show_alert=1)
         return
-        
-    settings = await get_settings(message.chat.id)
-    if 'is_shortlink' in settings.keys():
-        ENABLE_SHORTLINK = settings['is_shortlink']
-    else:
-        await save_group_settings(message.chat.id, 'is_shortlink', False)
-        ENABLE_SHORTLINK = False
-    pre = 'filep' if settings['file_secure'] else 'file'
-    if ENABLE_SHORTLINK == True:
-        btn = (
-            [
-                [
-                    InlineKeyboardButton(
-                        text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}",
-                        url=await get_shortlink(
-                            message.chat.id,
-                            f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
-                        ),
-                    ),
-                ]
-                for file in files
-            ]
-            if settings["button"]
-            else [
-                [
-                    InlineKeyboardButton(
-                        text=f"{file.file_name}",
-                        url=await get_shortlink(
-                            message.chat.id,
-                            f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
-                        ),
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{get_size(file.file_size)}",
-                        url=await get_shortlink(
-                            message.chat.id,
-                            f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
-                        ),
-                    ),
-                ]
-                for file in files
-            ]
-        )
-    elif settings["button"]:
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}", callback_data=f'{pre}#{file.file_id}'
-                ),
-            ]
-            for file in files
+
+    # Create episode buttons dynamically
+    btn = [
+        [
+            InlineKeyboardButton(
+                text=episode,
+                callback_data=f"episode#{episode}#{season}#{search}#{key}"
+            ),
         ]
-    else:
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{file.file_name}",
-                    callback_data=f'{pre}#{file.file_id}',
-                ),
-                InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)}",
-                    callback_data=f'{pre}#{file.file_id}',
-                ),
-            ]
-            for file in files
-        ]
+        for episode in episodes
+    ]
+
     try:
-        if settings['auto_delete']:
-            btn.insert(
-                0,
-                [
-                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
-                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
-                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
-                ],
-            )
-
-        else:
-            btn.insert(
-                0,
-                [
-                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
-                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
-                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
-                ],
-            )
-
+        btn.insert(
+            0,
+            [
+                InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+            ],
+        )
     except KeyError:
         grpid = await active_connection(str(message.from_user.id))
         await save_group_settings(grpid, 'auto_delete', True)
-        settings = await get_settings(message.chat.id)
-        if settings['auto_delete']:
-            btn.insert(
-                0,
-                [
-                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
-                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
-                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
-                ],
-            )
-
-        else:
-            btn.insert(
-                0,
-                [
-                    InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
-                    InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
-                    InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
-                ],
-            )
+        btn.insert(
+            0,
+            [
+                InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
+                InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
+                InlineKeyboardButton(f'ꜱᴇʀɪᴇꜱ', 'sinfo'),
+            ],
+        )
 
     btn.insert(0, [
         InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
@@ -812,7 +736,6 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     ])
 
     await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
-
 
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
