@@ -694,7 +694,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
-    _, season, current_search, key = query.data.split("#")
+    _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
     req = query.from_user.id
@@ -702,7 +702,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     message = query.message
 
     # Construct the search query with the selected season
-    search = f"{selected_season} {current_search}"
+    search = f"{selected_season} {search}"
     # Generate episode buttons dynamically for the selected season
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
