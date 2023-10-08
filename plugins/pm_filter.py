@@ -698,9 +698,12 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
-    req = query.from_user.id
-    chat_id = query.message.chat.id
-    message = query.message
+    episode_values = list(EPISODES.values())
+    matching_files = []
+    for values in episode_values:
+        for value in values:
+            if episode.lower() in value.lower():
+                 matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
 
     # Construct the search query with the selected season
     search = f"{search} {season}"
