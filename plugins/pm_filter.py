@@ -88,6 +88,7 @@ EPISODES = {
     "ᴇᴘɪꜱᴏᴅᴇ 25": ["E25", "ep25", "e25", "e25"],
     "ᴇᴘɪꜱᴏᴅᴇ 26": ["E26", "ep26", "e26", "e26"]
 }
+
     
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
 async def fil_mod(client, message):
@@ -664,7 +665,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 
 
-@app.on_callback_query(filters.regex(r"^seasons#"))
+@Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
     _, search, key = query.data.split("#")
 
@@ -692,7 +693,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
-@app.on_callback_query(filters.regex(r"^season#"))
+@Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
@@ -708,15 +709,15 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
     episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            )
-            for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
-        ]
-        for i in range(0, len(episode_names), 3)
+    [
+        InlineKeyboardButton(
+            text=episode_name,
+            callback_data=f"episode#{episode_value}#{search}#{key}"
+        )
+        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
     ]
+    for i in range(0, len(episode_names), 3)
+]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
@@ -724,7 +725,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
-@app.on_callback_query(filters.regex(r"^episode#"))
+@Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
 
@@ -743,14 +744,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Construct the search query with the selected season
     search = search.replace("_", " ")
-
-# Search for episodes with different values, case-insensitive
-episode_values = list(EPISODES.values())
-matching_files = []
-for values in episode_values:
-    for value in values:
-        if episode.lower() in value.lower():
-            matching_files.extend([file for file in files if re.search(value, file.file_name, re.IGNORECASE)])
+    search = f"{search} {episode}"
 
     # Generate episode buttons dynamically for the selected season
     episode_buttons = [
@@ -897,7 +891,7 @@ for values in episode_values:
 
     
     # Edit the message to show episode buttons
-await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 # spellcheck error fixing
 @Client.on_callback_query(filters.regex(r"^spol"))
 async def advantage_spoll_choker(bot, query):
