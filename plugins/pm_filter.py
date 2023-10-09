@@ -39,7 +39,16 @@ logger.setLevel(logging.ERROR)
 BUTTONS = {}
 SPELL_CHECK = {}
 FILTER_MODE = {}
-LANGUAGES = ["malayalam", "tamil", "english", "hindi", "telugu", "kannada"]
+LANGUAGES = {
+    "Malayalam": "mal",
+    "English": "eng",
+    "Tamil": "tam",
+    "Hindi": "hin",
+    "Telugu": "tel",
+    "Kannada": "kan",
+    "Multi Audio": "multi"
+}
+
 SEASONS = {
     "Season 1": "S01",
     "Season 2": "S02",
