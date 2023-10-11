@@ -757,7 +757,8 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected season
     search = search.replace("_", " ")
     episode_query = f"{episode}"
-    search = f"{search} ((?:e|ep)?{episode_query})"
+    search = f"{search}.*({episode_query})"
+
 
     # Generate episode buttons dynamically for the selected season
     episode_buttons = [
