@@ -733,7 +733,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    await query.edit_message_reply_markup(InlineKeyboardMarkup([episode_buttons]))
 
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
