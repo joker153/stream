@@ -742,7 +742,10 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     # You can add your logic to perform actions based on the selected episode
 
     # For example, you can send a message with the selected episode
-    await query.answer(f"SEARCHING...... {episode} of {search} (RESULT NOT ACCURATE NEED IMPORVE)")
+    await query.answer(
+    f"ꜰɪɴᴅɪɴɢ 🔍..... {episode} of {search} ᴛʜᴇ ꜰᴇᴀᴛᴜʀᴇ ɪꜱ ᴀ ʙᴇᴛᴀ ᴠᴇʀꜱɪᴏɴ, ꜱᴏ ʀᴇꜱᴜʟᴛꜱ ᴀʀᴇ ɴᴏᴛ ᴀᴄᴄᴜʀᴀᴛᴇ.",
+    show_alert=True  # Set show_alert to True
+)
 
     # You can also go back to the seasons or perform other actions as needed
     req = query.from_user.id
