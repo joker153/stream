@@ -327,6 +327,17 @@ async def next_page(bot, query):
 # Language Code Temp
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
 
 
     _, search, key = query.data.split("#")
@@ -358,6 +369,17 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
     _, quality, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
@@ -502,6 +524,17 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
 
 
     _, search, key = query.data.split("#")
@@ -533,6 +566,17 @@ async def languages_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^fl#"))
 async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
     _, lang, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
@@ -676,6 +720,17 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
     _, search, key = query.data.split("#")
 
     btn = [
@@ -704,6 +759,17 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
@@ -736,6 +802,17 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
+    if query.message.chat.type == "private" and query.message.from_user.is_bot:
+        return  # Skip user verification in bot PM
+
+    req = query.from_user.id
+
+    # Verify that the user is allowed to click the button
+    if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
+        return await query.answer(
+            f"⚠️ ʜᴇʟʟᴏ {query.from_user.first_name},\nᴛʜɪꜱ ɪꜱ ɴᴏᴛ ʏᴏᴜʀ ᴍᴏᴠɪᴇ ʀᴇQᴜᴇꜱᴛ,\nʀᴇQᴜᴇꜱᴛ ʏᴏᴜʀ'ꜱ...",
+            show_alert=True,
+        )
     _, episode, search, key = query.data.split("#")
 
     # Handle the selected episode here
