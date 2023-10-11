@@ -743,9 +743,9 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # For example, you can send a message with the selected episode
     await query.answer(
-    f"ꜰɪɴᴅɪɴɢ 🔍..... {episode} of {search} ᴛʜᴇ ꜰᴇᴀᴛᴜʀᴇ ɪꜱ ᴀ ʙᴇᴛᴀ ᴠᴇʀꜱɪᴏɴ, ꜱᴏ ʀᴇꜱᴜʟᴛꜱ ᴀʀᴇ ɴᴏᴛ ᴀᴄᴄᴜʀᴀᴛᴇ.",
-    show_alert=True  # Set show_alert to True
-)
+        f"ꜰɪɴᴅɪɴɢ 🔍..... {episode} of {search} ᴛʜᴇ ꜰᴇᴀᴛᴜʀᴇ ɪꜱ ᴀ ʙᴇᴛᴀ ᴠᴇʀꜱɪᴏɴ, ꜱᴏ ʀᴇꜱᴜʟᴛꜱ ᴀʀᴇ ɴᴏᴛ ᴀᴄᴄᴜʀᴀᴛᴇ.",
+        show_alert=True  # Set show_alert to True
+    )
 
     # You can also go back to the seasons or perform other actions as needed
     req = query.from_user.id
@@ -753,6 +753,8 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     message = query.message
 
     # Add logic to handle the selected episode here
+
+    episode_pattern = re.compile(f"e?p0?{episode}", re.IGNORECASE)
 
     # Construct the search query with the selected season
     search = search.replace("_", " ")
@@ -769,10 +771,17 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         for episode_name, episode_value in EPISODES.items()
     ]
 
-    files, offset, _ = await get_search_results(search, max_results=10)
-    files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
-    if not files:
-        await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
+    matching_files = [file for file in files if episode_pattern.search(file.file_name)]
+
+    if matching_files:
+        # Handle matched files here, e.g., construct a response message
+        response_message = f"Files matching Episode {episode}:\n"
+        for matched_file in matching_files:
+            response_message += f"- {matched_file.file_name}\n"
+
+        await query.answer(response_message, show_alert=True)
+    else:
+        await query.answer(f"No files found for Episode {episode}", show_alert=True)
         return
     settings = await get_settings(message.chat.id)      
     if 'is_shortlink' in settings.keys():
