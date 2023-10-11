@@ -772,6 +772,8 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     ]
 
     matching_files = [file for file in files if episode_pattern.search(file.file_name)]
+    files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
+
 
     if matching_files:
         # Handle matched files here, e.g., construct a response message
