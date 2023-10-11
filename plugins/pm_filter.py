@@ -724,7 +724,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
         episode_buttons.extend([
             InlineKeyboardButton(
                 text=variation,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
+                callback_data=f"episode#{episode_name}#{search}#{key}"
             )
             for variation in episode_variations
         ])
