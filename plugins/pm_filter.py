@@ -70,32 +70,32 @@ QUALITIES = {
 }
 
 EPISODES = {
-     "ᴇᴘɪꜱᴏᴅᴇ 1": "1",
-    "ᴇᴘɪꜱᴏᴅᴇ 2": "2",
-    "ᴇᴘɪꜱᴏᴅᴇ 3": "3",
-    "ᴇᴘɪꜱᴏᴅᴇ 4": "4",
-    "ᴇᴘɪꜱᴏᴅᴇ 5": "5",
-    "ᴇᴘɪꜱᴏᴅᴇ 6": "6",
-    "ᴇᴘɪꜱᴏᴅᴇ 7": "7",
-    "ᴇᴘɪꜱᴏᴅᴇ 8": "8",
-    "ᴇᴘɪꜱᴏᴅᴇ 9": "9",
-    "ᴇᴘɪꜱᴏᴅᴇ 10": "10",
-    "ᴇᴘɪꜱᴏᴅᴇ 11": "11",
-    "ᴇᴘɪꜱᴏᴅᴇ 12": "12",
-    "ᴇᴘɪꜱᴏᴅᴇ 13": "13",
-    "ᴇᴘɪꜱᴏᴅᴇ 14": "14",
-    "ᴇᴘɪꜱᴏᴅᴇ 15": "15",
-    "ᴇᴘɪꜱᴏᴅᴇ 16": "16",
-    "ᴇᴘɪꜱᴏᴅᴇ 17": "17",
-    "ᴇᴘɪꜱᴏᴅᴇ 18": "18",
-    "ᴇᴘɪꜱᴏᴅᴇ 19": "19",
-    "ᴇᴘɪꜱᴏᴅᴇ 20": "20",
-    "ᴇᴘɪꜱᴏᴅᴇ 21": "21",
-    "ᴇᴘɪꜱᴏᴅᴇ 22": "22",
-    "ᴇᴘɪꜱᴏᴅᴇ 23": "23",
-    "ᴇᴘɪꜱᴏᴅᴇ 24": "24",
-    "ᴇᴘɪꜱᴏᴅᴇ 25": "25",
-    "ᴇᴘɪꜱᴏᴅᴇ 26": "26"
+     "ᴇᴘɪꜱᴏᴅᴇ 1": "E01",
+    "ᴇᴘɪꜱᴏᴅᴇ 2": "E02",
+    "ᴇᴘɪꜱᴏᴅᴇ 3": "E03",
+    "ᴇᴘɪꜱᴏᴅᴇ 4": "E04",
+    "ᴇᴘɪꜱᴏᴅᴇ 5": "E05",
+    "ᴇᴘɪꜱᴏᴅᴇ 6": "E06",
+    "ᴇᴘɪꜱᴏᴅᴇ 7": "E07",
+    "ᴇᴘɪꜱᴏᴅᴇ 8": "E08",
+    "ᴇᴘɪꜱᴏᴅᴇ 9": "E09",
+    "ᴇᴘɪꜱᴏᴅᴇ 10": "E10",
+    "ᴇᴘɪꜱᴏᴅᴇ 11": "E11",
+    "ᴇᴘɪꜱᴏᴅᴇ 12": "E12",
+    "ᴇᴘɪꜱᴏᴅᴇ 13": "E13",
+    "ᴇᴘɪꜱᴏᴅᴇ 14": "E14",
+    "ᴇᴘɪꜱᴏᴅᴇ 15": "E15",
+    "ᴇᴘɪꜱᴏᴅᴇ 16": "E16",
+    "ᴇᴘɪꜱᴏᴅᴇ 17": "E17",
+    "ᴇᴘɪꜱᴏᴅᴇ 18": "E18",
+    "ᴇᴘɪꜱᴏᴅᴇ 19": "E19",
+    "ᴇᴘɪꜱᴏᴅᴇ 20": "E20",
+    "ᴇᴘɪꜱᴏᴅᴇ 21": "E21",
+    "ᴇᴘɪꜱᴏᴅᴇ 22": "E22",
+    "ᴇᴘɪꜱᴏᴅᴇ 23": "E23",
+    "ᴇᴘɪꜱᴏᴅᴇ 24": "E24",
+    "ᴇᴘɪꜱᴏᴅᴇ 25": "E25",
+    "ᴇᴘɪꜱᴏᴅᴇ 26": "E26"
 }
 
     
@@ -754,8 +754,6 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # Add logic to handle the selected episode here
 
-    episode_pattern = re.compile(f"e?p0?{episode}", re.IGNORECASE)
-
     # Construct the search query with the selected season
     search = search.replace("_", " ")
     search = f"{search} {episode}"
@@ -771,19 +769,10 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         for episode_name, episode_value in EPISODES.items()
     ]
 
-    matching_files = [file for file in files if episode_pattern.search(file.file_name)]
+    files, offset, _ = await get_search_results(search, max_results=10)
     files = [file for file in files if re.search(episode, file.file_name, re.IGNORECASE)]
-
-
-    if matching_files:
-        # Handle matched files here, e.g., construct a response message
-        response_message = f"Files matching Episode {episode}:\n"
-        for matched_file in matching_files:
-            response_message += f"- {matched_file.file_name}\n"
-
-        await query.answer(response_message, show_alert=True)
-    else:
-        await query.answer(f"No files found for Episode {episode}", show_alert=True)
+    if not files:
+        await query.answer("🚫 𝗡𝗼 𝗙𝗶𝗹𝗲 𝗪𝗲𝗿𝗲 𝗙𝗼𝘂𝗻𝗱 🚫", show_alert=1)
         return
     settings = await get_settings(message.chat.id)      
     if 'is_shortlink' in settings.keys():
