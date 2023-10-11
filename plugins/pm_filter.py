@@ -707,6 +707,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
+    season_episode_pattern = f"{search} (ep\\d+)" 
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
@@ -714,25 +715,20 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected season
     search = f"{search} {season}"
 
-    # Use regular expressions to match episode names with variations
+    # Generate episode buttons dynamically for the selected season
+    matching_episodes = re.findall(season_episode_pattern, episode_names)
     episode_names = list(EPISODES.keys())
     episode_values = list(EPISODES.values())
-    season_episode_pattern = re.compile(f"{search} (ep\\d+)", re.IGNORECASE)  # Regular expression pattern
-
-    # Find all matching episode names
-    matching_episodes = [episode_name for episode_name in episode_names if season_episode_pattern.search(episode_name)]
-
-    # Generate episode buttons for matching episodes
     episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            )
-            for episode_name, episode_value in zip(matching_episodes[i:i+3], episode_values[i:i+3])
-        ]
-        for i in range(0, len(matching_episodes), 3)
+    [
+        InlineKeyboardButton(
+            text=episode_name,
+            callback_data=f"episode#{episode_value}#{search}#{key}"
+        )
+        for episode_name, episode_value in zip(matching_episodes[i:i+3], episode_values[i:i+3])
     ]
+    for i in range(0, len(matching_episodes), 3)
+]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
