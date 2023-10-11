@@ -328,9 +328,9 @@ async def next_page(bot, query):
 @Client.on_callback_query(filters.regex(r"^qualities#"))
 async def qualities_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type == "private" and query.message.from_user.is_bot:
-        return  # Skip user verification in bot PM
+        req = 0  # Set user ID to 0 in bot PM to exempt it from verification
 
-    req = query.from_user.id
+    _, season, search, key = query.data.split("#")
 
     # Verify that the user is allowed to click the button
     if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
@@ -370,9 +370,9 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^quality#"))
 async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type == "private" and query.message.from_user.is_bot:
-        return  # Skip user verification in bot PM
+        req = 0  # Set user ID to 0 in bot PM to exempt it from verification
 
-    req = query.from_user.id
+    _, season, search, key = query.data.split("#")
 
     # Verify that the user is allowed to click the button
     if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
@@ -525,9 +525,9 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^languages#"))
 async def languages_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type == "private" and query.message.from_user.is_bot:
-        return  # Skip user verification in bot PM
+        req = 0  # Set user ID to 0 in bot PM to exempt it from verification
 
-    req = query.from_user.id
+    _, season, search, key = query.data.split("#")
 
     # Verify that the user is allowed to click the button
     if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
@@ -567,9 +567,9 @@ async def languages_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^fl#"))
 async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type == "private" and query.message.from_user.is_bot:
-        return  # Skip user verification in bot PM
+        req = 0  # Set user ID to 0 in bot PM to exempt it from verification
 
-    req = query.from_user.id
+    _, season, search, key = query.data.split("#")
 
     # Verify that the user is allowed to click the button
     if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
@@ -721,9 +721,9 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^seasons#"))
 async def seasons_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type == "private" and query.message.from_user.is_bot:
-        return  # Skip user verification in bot PM
+        req = 0  # Set user ID to 0 in bot PM to exempt it from verification
 
-    req = query.from_user.id
+    _, season, search, key = query.data.split("#")
 
     # Verify that the user is allowed to click the button
     if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
@@ -760,9 +760,9 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     if query.message.chat.type == "private" and query.message.from_user.is_bot:
-        return  # Skip user verification in bot PM
+        req = 0  # Set user ID to 0 in bot PM to exempt it from verification
 
-    req = query.from_user.id
+    _, season, search, key = query.data.split("#")
 
     # Verify that the user is allowed to click the button
     if int(req) not in [query.message.reply_to_message.from_user.id, 0]:
