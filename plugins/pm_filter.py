@@ -703,7 +703,9 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
-# Modify filter_seasons_cb_handler to generate buttons for all variations
+MAX_BUTTONS_PER_PAGE = 10
+
+# Modify filter_seasons_cb_handler to generate buttons for all variations and split into pages
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
@@ -727,16 +729,43 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
             for variation in episode_variations
         ])
 
-    # Create rows of three buttons each
-    episode_buttons_grouped = [episode_buttons[i:i + 3] for i in range(0, len(episode_buttons), 3)]
+    # Create rows of buttons with a maximum of MAX_BUTTONS_PER_PAGE buttons
+    episode_buttons_pages = [
+        episode_buttons[i:i + MAX_BUTTONS_PER_PAGE]
+        for i in range(0, len(episode_buttons), MAX_BUTTONS_PER_PAGE)
+    ]
 
     # Add an option to go back to the seasons
-    episode_buttons_grouped.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    episode_buttons_pages.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
-    # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons_grouped))
-    # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    # Define the current page and total pages
+    current_page = 0
+    total_pages = len(episode_buttons_pages)
+
+    # Edit the message to show the current page of episode buttons
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons_pages[current_page]))
+
+# Handle navigation between pages
+@Client.on_callback_query(filters.regex(r"^next_\d+_\d+_\d+_\d+"))
+async def handle_page_navigation(client: Client, query: CallbackQuery):
+    _, req, key, offset = query.data.split("_")
+
+    # Convert the offset to an integer
+    offset = int(offset)
+
+    # Handle navigation logic based on the offset
+    if offset == 1:
+        # Move to the next page
+        current_page = int(key) + 1
+    elif offset == -1:
+        # Move to the previous page
+        current_page = int(key) - 1
+
+    # Ensure the current page is within bounds
+    current_page = max(0, min(current_page, total_pages - 1))
+
+    # Edit the message to show the current page of episode buttons
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons_pages[current_page]))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
