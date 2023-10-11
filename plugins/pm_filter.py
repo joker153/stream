@@ -702,12 +702,14 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
+# ...
+
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
-    req = query.from_user.id
+    req = query from_user.id
     chat_id = query.message.chat.id
     message = query.message
 
@@ -733,7 +735,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup([episode_buttons]))
+    await query.edit_message_reply_markup(InlineKeyboardMarkup([episode_buttons]))  # Wrap episode_buttons in a list
 
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
