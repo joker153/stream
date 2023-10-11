@@ -707,39 +707,32 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
 
     search = search.replace("_", " ")
-    season_episode_pattern = f"{search} (ep\\d+)" 
     req = query.from_user.id
     chat_id = query.message.chat.id
     message = query.message
 
     # Construct the search query with the selected season
-    search = f"{search} {season}"
-    
-    # Extract episode names from the EPISODES dictionary
-    episode_names = list(EPISODES.keys())
-    episode_values = list(EPISODES.values())
-
-    # Use re.findall to find matching episode names
-    matching_episodes = re.findall(season_episode_pattern, " ".join(episode_names))  # Create a space-separated string
+    search = f"{search} {season} (e?p\\d+)"
 
     # Generate episode buttons dynamically for the selected season
+    episode_names = list(EPISODES.keys())
+    episode_values = list(EPISODES.values())
     episode_buttons = [
-        [
-            InlineKeyboardButton(
-                text=episode_name,
-                callback_data=f"episode#{episode_value}#{search}#{key}"
-            )
-            for episode_name, episode_value in zip(matching_episodes[i:i+3], episode_values[i:i+3])
-        ]
-        for i in range(0, len(matching_episodes), 3)
+    [
+        InlineKeyboardButton(
+            text=episode_name,
+            callback_data=f"episode#{episode_value}#{search}#{key}"
+        )
+        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
     ]
+    for i in range(0, len(episode_names), 3)
+]
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
-
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
