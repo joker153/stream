@@ -717,24 +717,20 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected season
     search = f"{search} {season}"
 
-    # Generate episode buttons dynamically for the selected season, three buttons per row
+    # Generate episode buttons dynamically for the selected season in rows of three
     episode_buttons = []
-    row = []
 
-    for episode_name, episode_variations in EPISODES.items():
-        for variation in episode_variations:
-            button = InlineKeyboardButton(
-                text=f"{episode_name} ({variation})",
-                callback_data=f"episode#{variation}#{search}#{key}"
+    episode_names = list(EPISODES.keys())
+    episode_variations = list(EPISODES.values())
+
+    for i in range(0, len(episode_names), 3):
+        row = [
+            InlineKeyboardButton(
+                text=f"{episode_names[i + j]} ({episode_variations[i + j]})",
+                callback_data=f"episode#{episode_variations[i + j]}#{search}#{key}"
             )
-            row.append(button)
-            # If we have three buttons in the row, add the row and start a new one
-            if len(row) == 3:
-                episode_buttons.append(row)
-                row = []
-
-    # If there are buttons left in the row, add them
-    if row:
+            for j in range(3) if i + j < len(episode_names)
+        ]
         episode_buttons.append(row)
 
     # Add an option to go back to the seasons
@@ -742,6 +738,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+
 
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
