@@ -703,6 +703,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
 
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
+# Modify filter_seasons_cb_handler to generate buttons for all variations
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
@@ -726,9 +727,14 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
             for variation in episode_variations
         ])
 
-    # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    # Create rows of three buttons each
+    episode_buttons_grouped = [episode_buttons[i:i + 3] for i in range(0, len(episode_buttons), 3)]
 
+    # Add an option to go back to the seasons
+    episode_buttons_grouped.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+
+    # Edit the message to show episode buttons
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons_grouped))
     # Edit the message to show episode buttons
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
