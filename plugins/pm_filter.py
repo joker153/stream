@@ -717,28 +717,21 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     search = f"{search} {season}"
 
     # Generate episode buttons dynamically for the selected season
-    episode_buttons = [
-        [
-            InlineKeyboardButton(
+    episode_buttons = []
+
+    for episode_name, episode_variations in EPISODES.items():
+        for variation in episode_variations:
+            button = InlineKeyboardButton(
                 text=f"{episode_name} ({variation})",
                 callback_data=f"episode#{variation}#{search}#{key}"
             )
-            for variation in episode_variations
-        ]
-        for episode_name, episode_variations in EPISODES.items()
-    ]
-
-    # Flatten the nested list
-    episode_buttons = [button for sublist in episode_buttons for button in sublist]
+            episode_buttons.append(button)
 
     # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    episode_buttons.append(InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}"))
 
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
-
-# The rest of your code remains the same
-# ...
+    await query.edit_message_reply_markup(InlineKeyboardMarkup([episode_buttons]))
 
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
