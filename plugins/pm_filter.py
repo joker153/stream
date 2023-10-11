@@ -743,7 +743,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
 
     # For example, you can send a message with the selected episode
     await query.answer(
-    f"ꜰɪɴᴅɪɴɢ 🔍..... {episode} of {search} ᴛʜᴇ ꜰᴇᴀᴛᴜʀᴇ ɪꜱ ᴀ ʙᴇᴛᴀ ᴠᴇʀꜱɪᴏɴ, ꜱᴏ ʀᴇꜱᴜʟᴛꜱ ᴀʀᴇ ɴᴏᴛ ᴀᴄᴄᴜʀᴀᴛᴇ.",
+    f"ꜰɪɴᴅɪɴɢ 🔍.....",
     show_alert=True  # Set show_alert to True
 )
 
@@ -757,7 +757,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected season
     search = search.replace("_", " ")
     episode_query = f"{episode}"
-    search = f"{search} (e|ep){episode_query}"
+    search = f"{search} ((?:e|ep)?{episode_query})"
 
     # Generate episode buttons dynamically for the selected season
     episode_buttons = [
