@@ -69,34 +69,17 @@ QUALITIES = {
     "360p": "360"
 }
 
-EPISODES = {
-     "ᴇᴘɪꜱᴏᴅᴇ 1": "E01",
-    "ᴇᴘɪꜱᴏᴅᴇ 2": "E02",
-    "ᴇᴘɪꜱᴏᴅᴇ 3": "E03",
-    "ᴇᴘɪꜱᴏᴅᴇ 4": "E04",
-    "ᴇᴘɪꜱᴏᴅᴇ 5": "E05",
-    "ᴇᴘɪꜱᴏᴅᴇ 6": "E06",
-    "ᴇᴘɪꜱᴏᴅᴇ 7": "E07",
-    "ᴇᴘɪꜱᴏᴅᴇ 8": "E08",
-    "ᴇᴘɪꜱᴏᴅᴇ 9": "E09",
-    "ᴇᴘɪꜱᴏᴅᴇ 10": "E10",
-    "ᴇᴘɪꜱᴏᴅᴇ 11": "E11",
-    "ᴇᴘɪꜱᴏᴅᴇ 12": "E12",
-    "ᴇᴘɪꜱᴏᴅᴇ 13": "E13",
-    "ᴇᴘɪꜱᴏᴅᴇ 14": "E14",
-    "ᴇᴘɪꜱᴏᴅᴇ 15": "E15",
-    "ᴇᴘɪꜱᴏᴅᴇ 16": "E16",
-    "ᴇᴘɪꜱᴏᴅᴇ 17": "E17",
-    "ᴇᴘɪꜱᴏᴅᴇ 18": "E18",
-    "ᴇᴘɪꜱᴏᴅᴇ 19": "E19",
-    "ᴇᴘɪꜱᴏᴅᴇ 20": "E20",
-    "ᴇᴘɪꜱᴏᴅᴇ 21": "E21",
-    "ᴇᴘɪꜱᴏᴅᴇ 22": "E22",
-    "ᴇᴘɪꜱᴏᴅᴇ 23": "E23",
-    "ᴇᴘɪꜱᴏᴅᴇ 24": "E24",
-    "ᴇᴘɪꜱᴏᴅᴇ 25": "E25",
-    "ᴇᴘɪꜱᴏᴅᴇ 26": "E26"
-}
+# Create a dictionary for episode names in the format "E01" and "ep01"
+EPISODES = {}
+for i in range(1, 27):
+    episode_number = f"{i:02}"  # Format the episode number with leading zeros
+    episode_name_upper = f"E{episode_number}"
+    episode_name_lower = f"ep{episode_number}"
+
+    EPISODES[episode_name_upper] = episode_name_upper
+    EPISODES[episode_name_lower] = episode_name_upper
+
+
 
     
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
