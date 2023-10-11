@@ -704,6 +704,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
     await query.edit_message_reply_markup(InlineKeyboardMarkup(btn))
 
 # Modify filter_seasons_cb_handler to generate buttons for all variations
+
 @Client.on_callback_query(filters.regex(r"^season#"))
 async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     _, season, search, key = query.data.split("#")
@@ -716,8 +717,9 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     # Construct the search query with the selected season
     search = f"{search} {season}"
 
-    # Generate episode buttons dynamically for the selected season
+    # Generate episode buttons dynamically for the selected season, three buttons per row
     episode_buttons = []
+    row = []
 
     for episode_name, episode_variations in EPISODES.items():
         for variation in episode_variations:
@@ -725,13 +727,21 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
                 text=f"{episode_name} ({variation})",
                 callback_data=f"episode#{variation}#{search}#{key}"
             )
-            episode_buttons.append(button)
+            row.append(button)
+            # If we have three buttons in the row, add the row and start a new one
+            if len(row) == 3:
+                episode_buttons.append(row)
+                row = []
+
+    # If there are buttons left in the row, add them
+    if row:
+        episode_buttons.append(row)
 
     # Add an option to go back to the seasons
-    episode_buttons.append(InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}"))
+    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
 
     # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup([episode_buttons]))
+    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
