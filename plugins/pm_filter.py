@@ -715,18 +715,15 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     search = f"{search} {season}"
 
     # Generate episode buttons dynamically for the selected season
-    episode_names = list(EPISODES.keys())
-    episode_values = list(EPISODES.values())
-    episode_buttons = [
-    [
-        InlineKeyboardButton(
-            text=episode_name,
-            callback_data=f"episode#{episode_value}#{search}#{key}"
-        )
-        for episode_name, episode_value in zip(episode_names[i:i+3], episode_values[i:i+3])
-    ]
-    for i in range(0, len(episode_names), 3)
-]
+    episode_buttons = []
+    for episode_name, episode_variations in EPISODES.items():
+        episode_buttons.extend([
+            InlineKeyboardButton(
+                text=f"{episode_name} ({variation})",
+                callback_data=f"episode#{variation}#{search}#{key}"
+            )
+            for variation in episode_variations
+        ])
 
     # Add an option to go back to the seasons
     episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
