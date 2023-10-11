@@ -735,7 +735,7 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
     await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
-async def filter_episodes_cb_handler(client: Client, query: CallbackQuery, files):
+async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
     _, episode, search, key = query.data.split("#")
 
     # Handle the selected episode here
@@ -743,9 +743,9 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery, files
 
     # For example, you can send a message with the selected episode
     await query.answer(
-        f"ꜰɪɴᴅɪɴɢ 🔍..... {episode} of {search} ᴛʜᴇ ꜰᴇᴀᴛᴜʀᴇ ɪꜱ ᴀ ʙᴇᴛᴀ ᴠᴇʀꜱɪᴏɴ, ꜱᴏ ʀᴇꜱᴜʟᴛꜱ ᴀʀᴇ ɴᴏᴛ ᴀᴄᴄᴜʀᴀᴛᴇ.",
-        show_alert=True  # Set show_alert to True
-    )
+    f"ꜰɪɴᴅɪɴɢ 🔍..... {episode} of {search} ᴛʜᴇ ꜰᴇᴀᴛᴜʀᴇ ɪꜱ ᴀ ʙᴇᴛᴀ ᴠᴇʀꜱɪᴏɴ, ꜱᴏ ʀᴇꜱᴜʟᴛꜱ ᴀʀᴇ ɴᴏᴛ ᴀᴄᴄᴜʀᴀᴛᴇ.",
+    show_alert=True  # Set show_alert to True
+)
 
     # You can also go back to the seasons or perform other actions as needed
     req = query.from_user.id
