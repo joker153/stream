@@ -130,7 +130,7 @@ async def give_filter(client, message):
 
     keywords = await get_filters(group_id)
     for keyword in reversed(sorted(keywords, key=len)):
-        pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
+        pattern = r"\b" + re.escape(keyword) + r"\b"
         if re.search(pattern, name, flags=re.IGNORECASE):
             reply_text, btn, alert, fileid = await find_filter(group_id, keyword)
 
@@ -729,10 +729,14 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
 ]
 
     # Add an option to go back to the seasons
-    episode_buttons.append([InlineKeyboardButton(text="⬅ Back to Seasons", callback_data=f"seasons#{search}#{key}")])
+    btn.append([
+        InlineKeyboardButton(
+            text="↺ ʙᴀᴄᴋ ᴛᴏ ꜰɪʟᴇs ​↻",
+            callback_data=f"next_{req}_{key}_{offset}"
+        ),
+    ])
 
-    # Edit the message to show episode buttons
-    await query.edit_message_reply_markup(InlineKeyboardMarkup(episode_buttons))
+    await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
 
 @Client.on_callback_query(filters.regex(r"^episode#"))
 async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
