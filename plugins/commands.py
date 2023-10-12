@@ -78,7 +78,7 @@ async def start(client, message):
         reply_markup = InlineKeyboardMarkup(buttons)
 
         await message.reply_photo(
-            photo=START_IMAGE_URL if START_IMAGE_URL else random.choice(PICS),
+            photo=PICS if PICS else random.choice(PICS),
             caption=script.START_TXT.format(
                 (message.from_user.mention if 
                 message.from_user else 
