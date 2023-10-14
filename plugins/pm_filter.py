@@ -1164,14 +1164,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
         size = get_size(files.file_size)
         f_caption = files.caption
         filtered_title = re.sub(r'(@\w+|\[\w+\])', '', title) if title else title
-        filtered_f_caption = re.sub(r'(@\w+|\[\w+\])', '', f_caption) if f_caption else f_caption
         settings = await get_settings(query.message.chat.id)
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if filtered_title is None else filtered_title,
                                                        file_size='' if size is None else size,
-                                                       file_caption='' if filtered_f_caption is None else filtered_f_caption
-            try:                                           
+                                                       file_caption='' if f_caption is None else re.sub(r'(@\w+|\[\w+\])', '', f_caption))
             except Exception as e:
                 logger.exception(e)
             f_caption = f_caption
@@ -1216,12 +1214,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
         size = get_size(files.file_size)
         f_caption = files.caption
         filtered_title = re.sub(r'(@\w+|\[\w+\])', '', title) if title else title
-        filtered_f_caption = re.sub(r'(@\w+|\[\w+\])', '', f_caption) if f_caption else f_caption
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if filtered_title is None else filtered_title,
                                                        file_size='' if size is None else size,
-                                                       file_caption='' if filtered_f_caption is None else filtered_f_caption
+                                                       file_caption='' if f_caption is None else re.sub(r'(@\w+|\[\w+\])', '', f_caption))
             except Exception as e:
                 logger.exception(e)
                 f_caption = f_caption
