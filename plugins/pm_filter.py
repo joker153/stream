@@ -1203,7 +1203,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if filtered_title is None else filtered_title,
                                                        file_size='' if size is None else size,
-                                                       file_caption='' if f_caption is None else re.sub(r'(@\w+|\[mm\])', '', f_caption)
+                                                       file_caption='' if f_caption is None else re.sub(r'(@\w+|\[mm\])', '', f_caption))
             except Exception as e:
                 logger.exception(e)
                 f_caption = f_caption
