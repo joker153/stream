@@ -224,18 +224,19 @@ async def next_page(bot, query):
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"[{get_size(file.file_size)}] {file.file_name}",
+                        text=f"[{get_size(file.file_size)}] {filtered}",
                         url=await get_shortlink(query.message.chat.id,
                                                 f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
         else:
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}", url=await get_shortlink(query.message.chat.id,
+                        text=f"{filtered}", url=await get_shortlink(query.message.chat.id,
                                                                           f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
                     ),
                     InlineKeyboardButton(
@@ -251,16 +252,17 @@ async def next_page(bot, query):
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                        text=f"[{get_size(file.file_size)}] {filtered}", callback_data=f'files#{file.file_id}'
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
         else:
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
+                        text=f"{filtered}", callback_data=f'files#{file.file_id}'
                     ),
                     InlineKeyboardButton(
                         text=f"{get_size(file.file_size)}",
@@ -388,7 +390,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}",
+                        text=f"▫️ {get_size(file.file_size)} ⊳ {filtered}",
                         url=await get_shortlink(
                             message.chat.id,
                             f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
@@ -396,12 +398,13 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
             if settings["button"]
             else [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}",
+                        text=f"{filtered}",
                         url=await get_shortlink(
                             message.chat.id,
                             f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
@@ -416,22 +419,24 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
         )
     elif settings["button"]:
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                    text=f"▫️ {get_size(file.file_size)} ⊳ {filtered}", callback_data=f'{pre}#{file.file_id}'
                 ),
             ]
             for file in files
+            for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
         ]
     else:
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{file.file_name}",
+                    text=f"{filtered}",
                     callback_data=f'{pre}#{file.file_id}',
                 ),
                 InlineKeyboardButton(
@@ -440,6 +445,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
                 ),
             ]
             for file in files
+            for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
         ]
     try:
         if settings['auto_delete']:
@@ -560,7 +566,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}",
+                        text=f"▫️ {get_size(file.file_size)} ⊳ {filtered}",
                         url=await get_shortlink(
                             message.chat.id,
                             f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
@@ -568,12 +574,13 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
             if settings["button"]
             else [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}",
+                        text=f"{filtered}",
                         url=await get_shortlink(
                             message.chat.id,
                             f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
@@ -588,22 +595,24 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
         )
     elif settings["button"]:
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                    text=f"▫️ {get_size(file.file_size)} ⊳ {filtered}", callback_data=f'{pre}#{file.file_id}'
                 ),
             ]
             for file in files
+            for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
         ]
     else:
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{file.file_name}",
+                    text=f"{filtered}",
                     callback_data=f'{pre}#{file.file_id}',
                 ),
                 InlineKeyboardButton(
@@ -612,6 +621,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
                 ),
             ]
             for file in files
+            for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
         ]
     try:
         if settings['auto_delete']:
@@ -789,7 +799,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}",
+                        text=f"▫️ {get_size(file.file_size)} ⊳ {filtered}",
                         url=await get_shortlink(
                             message.chat.id,
                             f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
@@ -797,12 +807,13 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
             if settings["button"]
             else [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}",
+                        text=f"{filtered}",
                         url=await get_shortlink(
                             message.chat.id,
                             f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}",
@@ -817,22 +828,24 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
         )
     elif settings["button"]:
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"▫️ {get_size(file.file_size)} ⊳ {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                    text=f"▫️ {get_size(file.file_size)} ⊳ {filtered}", callback_data=f'{pre}#{file.file_id}'
                 ),
             ]
             for file in files
+            for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
         ]
     else:
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{file.file_name}",
+                    text=f"{filtered}",
                     callback_data=f'{pre}#{file.file_id}',
                 ),
                 InlineKeyboardButton(
@@ -841,6 +854,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
                 ),
             ]
             for file in files
+            for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
         ]
     try:
         if settings['auto_delete']:
@@ -1891,17 +1905,18 @@ async def auto_filter(client, msg, spoll=False):
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"[{get_size(file.file_size)}] {file.file_name}", url=await get_shortlink(message.chat.id,
+                        text=f"[{get_size(file.file_size)}] {filtered}", url=await get_shortlink(message.chat.id,
                                                                                                        f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
         else:
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}",
+                        text=f"{filtered}",
                         url=await get_shortlink(message.chat.id,
                                                 f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
                     ),
@@ -1912,22 +1927,25 @@ async def auto_filter(client, msg, spoll=False):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
     else:
         if settings["button"]:
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                        text=f"[{get_size(file.file_size)}] {filtered}", callback_data=f'{pre}#{file.file_id}'
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
+                
             ]
         else:
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"{file.file_name}",
+                        text=f"{filtered}",
                         callback_data=f'{pre}#{file.file_id}',
                     ),
                     InlineKeyboardButton(
@@ -1936,6 +1954,7 @@ async def auto_filter(client, msg, spoll=False):
                     ),
                 ]
                 for file in files
+                for filtered in [re.sub(r'(@\w+|\[\w+\])', '', file.file_name)]
             ]
 
     key = f"{message.chat.id}-{message.id}"
