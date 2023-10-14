@@ -260,7 +260,7 @@ async def next_page(bot, query):
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"{re.sub(r'(@\w+|\[\w+\])', '', file.file_name)}", callback_data=f'files#{file.file_id}'
+                        text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
                     ),
                     InlineKeyboardButton(
                         text=f"{get_size(file.file_size)}",
