@@ -40,10 +40,9 @@ async def save_file(media):
     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
     try:
         file = Media(
-            filtered_file_name = re.sub(r'(@\w+|\[\w+\])', '', file_name)
             file_id=file_id,
             file_ref=file_ref,
-            file_name=filtered_file_name,
+            file_name=file_name,
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
