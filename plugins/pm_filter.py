@@ -36,7 +36,7 @@ import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
-filtered_file_name = re.sub(r'(@\w+|\[\w+\])', '', filtered_file_name)
+
 BUTTONS = {}
 SPELL_CHECK = {}
 FILTER_MODE = {}
@@ -99,7 +99,7 @@ EPISODES = {
     "ᴇᴘɪꜱᴏᴅᴇ 26": "26"
 }
 
-    
+filtered_file_name = re.sub(r'(@\w+|\[\w+\])', '', file.file_name)    
 @Client.on_message(filters.command('autofilter') & filters.user(ADMINS))
 async def fil_mod(client, message):
     mode_on = ["yes", "on", "true"]
