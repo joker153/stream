@@ -332,12 +332,12 @@ async def qualities_cb_handler(client: Client, query: CallbackQuery):
 
 
     _, search, key = query.data.split("#")
-
+    req = query.from_user.id 
     btn = [
         [
             InlineKeyboardButton(
                 text=quality_name,
-                callback_data=f"quality#{quality_value}#{search}#{key}"
+                callback_data=f"quality#{req}#{quality_value}#{search}#{key}"
             ),
         ]
         for quality_name, quality_value in QUALITIES.items()
