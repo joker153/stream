@@ -1202,10 +1202,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
         except Exception as e:
             await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
     elif query.data.startswith("checksub"):
-       if (AUTH_CHANNEL and not await is_subscribed(client, query)) or (AUTH_CHANNEL2 and not await is_subscribed(client, query)):
+       if AUTH_CHANNEL and not await is_subscribed(client, query):
             await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒", show_alert=True)
-            return 
-           
+            return
+        elif AUTH_CHANNEL2 and not await is_subscribed(client, query):
+        # Handle the additional subscription force logic here
+        await query.answer("Message for the second subscription force", show_alert=True)
+        return    
+
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
         if not files_:
