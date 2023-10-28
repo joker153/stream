@@ -83,6 +83,8 @@ MONGO_URL = os.environ.get('MONGO_URL', "")
 DOWNLOAD_LOCATION = environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/AudioBoT/")
 
 # FSUB
+auth_channel2 = environ.get('AUTH_CHANNEL2')
+AUTH_CHANNEL2 = int(auth_channel2) if auth_channel and id_pattern.search(auth_channel2) else False
 auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
