@@ -44,14 +44,17 @@ class temp(object):
     SETTINGS = {}
 
 
-async def is_subscribed(bot, query):
+async def is_subscribed(bot, query, force):
     try:
-        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
-    elif force == "AUTH_CHANNEL2":
-            # Implement the logic for checking subscription to SUB_FORCE2
-            # Replace SUB_FORCE2 with the actual channel or identifier you're using
-        user = await bot.get_chat_member(AUTH_CHANNEL2, query.from_user.id)
-      
+        if force == "AUTH_CHANNEL":
+            user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+        elif force == "AUTH_CHANNEL2":
+            # Implement the logic for checking subscription to AUTH_CHANNEL2
+            # Replace AUTH_CHANNEL2 with the actual channel or identifier you're using
+            user = await bot.get_chat_member(AUTH_CHANNEL2, query.from_user.id)
+        else:
+            return False  # Unknown force
+
     except UserNotParticipant:
         pass
     except Exception as e:
@@ -61,6 +64,7 @@ async def is_subscribed(bot, query):
             return True
 
     return False
+
 
 
 
