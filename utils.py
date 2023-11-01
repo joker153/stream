@@ -1,6 +1,6 @@
 import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
-from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM, SHORTLINK_URL, SHORTLINK_API, ADMINS, REQ_CHANNEL, \
+from info import AUTH_CHANNEL, AUTH_CHANNEL2, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM, SHORTLINK_URL, SHORTLINK_API, ADMINS, REQ_CHANNEL, \
     MAIN_CHANNEL, CUSTOM_FILE_CAPTION
 from imdb import Cinemagoer
 import asyncio
@@ -47,6 +47,19 @@ class temp(object):
 async def is_subscribed(bot, query):
     try:
         user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        logger.exception(e)
+    else:
+        if user.status != 'kicked':
+            return True
+
+    return False
+
+async def is_subscribed(bot, query):
+    try:
+        user = await bot.get_chat_member(AUTH_CHANNEL2, query.from_user.id)
     except UserNotParticipant:
         pass
     except Exception as e:
