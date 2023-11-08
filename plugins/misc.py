@@ -1,7 +1,7 @@
 import os
 from pyrogram import Client, filters, enums
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
-from info import IMDB_TEMPLATE, PICS
+from info import IMDB_TEMPLATE
 from utils import extract_user, get_file_id, get_poster, last_online
 import time
 from datetime import datetime
@@ -200,7 +200,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
             await quer_y.message.reply_photo(photo=imdb['poster'], caption=caption, reply_markup=InlineKeyboardMarkup(btn))
         except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
             pic = imdb.get('poster')
-            poster = pic.replace('.jpg', "PICS")
+            poster = pic.replace('.jpg', "._V1_UX360.jpg")
             await quer_y.message.reply_photo(photo=poster, caption=caption, reply_markup=InlineKeyboardMarkup(btn))
         except Exception as e:
             logger.exception(e)
