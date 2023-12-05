@@ -33,6 +33,7 @@ from database.gfilters_mdb import (
 )
 import logging
 
+lock = asyncio.Lock()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
