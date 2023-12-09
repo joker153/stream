@@ -8,7 +8,7 @@ from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 
 from database.join_reqs import JoinReqs
-from info import AUTH_CHANNEL, JOIN_REQS_DB, ADMINS
+from info import REQ_CHANNEL, AUTH_CHANNEL, JOIN_REQS_DB, ADMINS
 
 from logging import getLogger
 
@@ -23,7 +23,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
     if update.from_user.id in auth:
         return True
 
-    if not AUTH_CHANNEL and not AUTH_CHANNEL:
+    if not AUTH_CHANNEL and not REQ_CHANNEL:
         return True
 
     is_cb = False
@@ -37,8 +37,8 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         # Makes the bot a bit faster and also eliminates many issues realted to invite links.
         if INVITE_LINK is None:
             invite_link = (await bot.create_chat_invite_link(
-                chat_id=(int(AUTH_CHANNEL) if not AUTH_CHANNEL and not JOIN_REQS_DB else AUTH_CHANNEL),
-                creates_join_request=True if AUTH_CHANNEL and JOIN_REQS_DB else False
+                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL and not JOIN_REQS_DB else REQ_CHANNEL),
+                creates_join_request=True if REQ_CHANNEL and JOIN_REQS_DB else False
             )).invite_link
             INVITE_LINK = invite_link
             logger.info("Created Req link")
@@ -51,7 +51,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         return fix_
 
     except Exception as err:
-        print(f"Unable to do Force Subscribe to {AUTH_CHANNEL}\n\nError: {err}\n\n")
+        print(f"Unable to do Force Subscribe to {REQ_CHANNEL}\n\nError: {err}\n\n")
         await update.reply(
             text="Something went Wrong.",
             parse_mode=enums.ParseMode.MARKDOWN,
@@ -60,7 +60,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         return False
 
     # Mian Logic
-    if AUTH_CHANNEL and db().isActive():
+    if REQ_CHANNEL and db().isActive():
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user(update.from_user.id)
@@ -80,7 +80,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
             raise UserNotParticipant
         # Check if User is Already Joined Channel
         user = await bot.get_chat_member(
-                   chat_id=(int(AUTH_CHANNEL) if not AUTH_CHANNEL and not db().isActive() else AUTH_CHANNEL), 
+                   chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL and not db().isActive() else REQ_CHANNEL), 
                    user_id=update.from_user.id
                )
         if user.status == "kicked":
