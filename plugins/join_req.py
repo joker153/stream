@@ -6,13 +6,13 @@ from logging import getLogger
 from pyrogram import Client, filters, enums
 from pyrogram.types import ChatJoinRequest
 from database.join_reqs import JoinReqs
-from info import ADMINS, AUTH_CHANNEL
+from info import ADMINS, REQ_CHANNEL
 
 
 db = JoinReqs
 logger = getLogger(__name__)
 
-@Client.on_chat_join_request(filters.chat(AUTH_CHANNEL if AUTH_CHANNEL else "self"))
+@Client.on_chat_join_request(filters.chat(REQ_CHANNEL if REQ_CHANNEL else "self"))
 async def join_reqs(client, join_req: ChatJoinRequest):
 
     if db().isActive():
@@ -29,7 +29,7 @@ async def join_reqs(client, join_req: ChatJoinRequest):
         )
 
 
-@Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
+@Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1869495895])))
 async def total_requests(client, message):
 
     if db().isActive():
