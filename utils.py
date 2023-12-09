@@ -13,8 +13,10 @@ from datetime import datetime
 from typing import List
 from database.users_chats_db import db
 from bs4 import BeautifulSoup
+from database.join_reqs import JoinReqs as db2
 import requests
 import aiohttp
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
