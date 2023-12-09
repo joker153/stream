@@ -29,7 +29,7 @@ async def join_reqs(client, join_req: ChatJoinRequest):
         )
 
 
-@Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1869495895])))
+@Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
 async def total_requests(client, message):
 
     if db().isActive():
