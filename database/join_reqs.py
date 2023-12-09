@@ -3,7 +3,7 @@
 # (c) @AlbertEinsteinTG
 
 import motor.motor_asyncio
-from info import REQ_CHANNEL
+from info import AUTH_CHANNEL
 
 class JoinReqs:
 
@@ -12,7 +12,7 @@ class JoinReqs:
         if JOIN_REQS_DB:
             self.client = motor.motor_asyncio.AsyncIOMotorClient(JOIN_REQS_DB)
             self.db = self.client["JoinReqs"]
-            self.col = self.db[str(REQ_CHANNEL)]
+            self.col = self.db[str(AUTH_CHANNEL)]
         else:
             self.client = None
             self.db = None
