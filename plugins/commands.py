@@ -55,19 +55,21 @@ async def start(client, message):
             parse_mode=enums.ParseMode.HTML
         )
         return
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
-        try:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        except ChatAdminRequired:
-            logger.error("Make sure Bot is admin in Forcesub channel")
-            return
-        btn = [
-            [
-                InlineKeyboardButton(
-                    "🤖 Join Updates Channel", url=invite_link.invite_link
-                )
+    if AUTH_CHANNEL:
+    for channel_id in AUTH_CHANNEL:
+        if not await is_subscribed(client, message, channel_id):
+            try:
+                invite_link = await client.create_chat_invite_link(int(channel_id))
+            except ChatAdminRequired:
+                logger.error("Make sure Bot is admin in Forcesub channel")
+                return
+            btn = [
+                [
+                    InlineKeyboardButton(
+                        "🤖 Join Updates Channel", url=invite_link.invite_link
+                    )
+                ]
             ]
-        ]
 
         if message.command[1] != "subscribe":
             try:
