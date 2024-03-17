@@ -69,7 +69,7 @@ AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID')
 # This is required for the plugins involving the file system.
 TMP_DOWNLOAD_DIRECTORY = environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
-
+IS_FSUB = is_enabled('IS_FSUB', True)
 # Command
 COMMAND_HAND_LER = environ.get("COMMAND_HAND_LER", "/")
 
