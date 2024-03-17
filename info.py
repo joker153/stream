@@ -89,7 +89,6 @@ AUTH_CHANNEL = [int(auth_channels) if auth_channels.lower() != 'false' else Fals
 if len(AUTH_CHANNEL) == 0 or (len(AUTH_CHANNEL) == 1 and AUTH_CHANNEL[0] is False):
     # Handle the case when no valid channel IDs are provided
 
-AUTH_CHANNEL2 = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
 REQ_CHANNEL = environ.get("REQ_CHANNEL", False)
 REQ_CHANNEL = int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL) else False
