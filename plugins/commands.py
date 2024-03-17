@@ -56,7 +56,7 @@ async def start(client, message):
         )
         return
     if AUTH_CHANNEL:
-    for channel_id in AUTH_CHANNEL:
+        for channel_id in AUTH_CHANNEL:
         if not await is_subscribed(client, message, channel_id):
             try:
                 invite_link = await client.create_chat_invite_link(int(channel_id))
