@@ -11,7 +11,7 @@ from Script import script
 import pyrogram
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
     make_inactive
-from info import ADMINS, APPROVED, AUTH_CHANNEL, FILE_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, NOR_IMG, AUTH_GROUPS, \
+from info import ADMINS, IS_FSUB, APPROVED, AUTH_CHANNEL, FILE_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, NOR_IMG, AUTH_GROUPS, \
     P_TTI_SHOW_OFF, IMDB, \
     SINGLE_BUTTON, SPELL_CHECK_REPLY, IMDB_TEMPLATE, SPELL_IMG, MSG_ALRT, FILE_FORWARD, MAIN_CHANNEL, LOG_CHANNEL, PICS, \
     SUPPORT_CHAT_ID, REQ_CHANNEL
@@ -126,6 +126,32 @@ async def fil_mod(client, message):
 
 @Client.on_message((filters.private | filters.group) & filters.text & filters.incoming)
 async def give_filter(client, message):
+    fsub = settings['fsub']
+    if settings.get('is_fsub', IS_FSUB) and fsub is not None:
+        try:
+            btn = await is_subscribed(client, message, int(fsub))
+            if btn:
+                btn.append(
+                    [InlineKeyboardButton("Unmute Me 🔕", callback_data=f"unmuteme#{chatid}")]
+                )
+                reply_markup = InlineKeyboardMarkup(btn)
+                try:
+                    await client.restrict_chat_member(chatid, message.from_user.id, ChatPermissions(can_send_messages=False))
+                    await message.reply_photo(
+                        photo=random.choice(PICS),
+                        caption=f"👋 Hello {message.from_user.mention},\n\nPlease join and try again. 😇",
+                        reply_markup=reply_markup,
+                        parse_mode=enums.ParseMode.HTML
+                    )
+                    return
+                except Exception as e:
+                    print(e)
+            else:
+                pass
+        except:
+            pass
+    else:
+        pass
     await global_filters(client, message)
     group_id = message.chat.id
     name = message.text
@@ -1179,9 +1205,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
             f_caption = f"{files.file_name}"
 
         try:
-            if AUTH_CHANNEL and not await is_subscribed(client, query):
-                await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
-                return
+            if query.data.startswith("file"):
+        ident, file_id = query.data.split("#")
+        user = query.message.reply_to_message.from_user.id
+        if int(user) != 0 and query.from_user.id != int(user):
+            return await query.answer(f"Hello {query.from_user.first_name},\nDon't Click Other Results!", show_alert=True)
+        await query.answer(url=f"https://t.me/{temp.U_NAME}?start=file_{query.message.chat.id}_{file_id}")
             elif settings['botpm']:
                 await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                 return
@@ -1203,9 +1232,28 @@ async def cb_handler(client: Client, query: CallbackQuery):
         except Exception as e:
             await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
     elif query.data.startswith("checksub"):
-        if AUTH_CHANNEL and not await is_subscribed(client, query):
-            await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒", show_alert=True)
+        ident, mc = query.data.split("#")
+        settings = await get_settings(int(mc.split("_", 2)[1]))
+        btn = await is_subscribed(client, query, settings['fsub'])
+        if btn:
+            await query.answer(f"Hello {query.from_user.first_name},\nPlease join my updates channel and try again.", show_alert=True)
+            btn.append(
+                [InlineKeyboardButton("🔁 Try Again 🔁", callback_data=f"checksub#{mc}")]
+            )
+            await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(btn))
             return
+        await query.answer(url=f"https://t.me/{temp.U_NAME}?start={mc}")
+        await query.message.delete()
+
+    elif query.data.startswith("unmuteme"):
+        ident, chatid = query.data.split("#")
+        settings = await get_settings(int(chatid))
+        btn = await is_subscribed(client, query, settings['fsub'])
+        if btn:
+           await query.answer("Kindly Join Given Channel To Get Unmute", show_alert=True)
+        else:
+            await client.unban_chat_member(query.message.chat.id, user_id)
+            await query.answer("Unmuted Successfully !", show_alert=True)
 
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
