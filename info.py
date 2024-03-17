@@ -85,7 +85,14 @@ DOWNLOAD_LOCATION = environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/AudioBoT/")
 # FSUB
 
 auth_channel = environ.get('AUTH_CHANNEL')
-AUTH_CHANNEL = [int(channel_id) for channel_id in environ.get('AUTH_CHANNEL', '').split(',')]
+
+# Handle the case when no valid channel IDs are provided
+if auth_channel and not any(id.isdigit() for id in auth_channel.split()):
+  AUTH_CHANNELS = False
+else:
+  # Convert channel IDs from string to a list of integers (depending on format)
+  AUTH_CHANNELS = [int(channel_id) for channel_id in auth_channel.split(',')] if ',' in auth_channel else [int(id.strip()) for id in auth_channel.split()]  # Handle comma-separated or individual IDs
+
     # Handle the case when no valid channel IDs are provided
 
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
