@@ -88,10 +88,10 @@ auth_channel = environ.get('AUTH_CHANNEL')
 
 # Handle the case when no valid channel IDs are provided
 if auth_channel and not any(id.isdigit() for id in auth_channel.split()):
-  AUTH_CHANNELS = False
+  AUTH_CHANNEL = False
 else:
   # Convert channel IDs from string to a list of integers (depending on format)
-  AUTH_CHANNELS = [int(channel_id) for channel_id in auth_channel.split(',')] if ',' in auth_channel else [int(id.strip()) for id in auth_channel.split()]  # Handle comma-separated or individual IDs
+  AUTH_CHANNEL = [int(channel_id) for channel_id in auth_channel.split(',')] if ',' in auth_channel else [int(id.strip()) for id in auth_channel.split()]  # Handle comma-separated or individual IDs
 
     # Handle the case when no valid channel IDs are provided
 
