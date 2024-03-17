@@ -85,9 +85,10 @@ DOWNLOAD_LOCATION = environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/AudioBoT/")
 # FSUB
 
 auth_channel = environ.get('AUTH_CHANNEL')
-AUTH_CHANNEL = [int(auth_channels) for auth_channels in environ.get('AUTH_CHANNEL', '').split()]
-if len(AUTH_CHANNEL) == 0:
-    print('Info - AUTH_CHANNEL is empty')
+AUTH_CHANNEL = [int(auth_channels) if auth_channels.lower() != 'false' else False for auth_channels in environ.get('AUTH_CHANNEL', '').split()]
+if len(AUTH_CHANNEL) == 0 or (len(AUTH_CHANNEL) == 1 and AUTH_CHANNEL[0] is False):
+    # Handle the case when no valid channel IDs are provided
+
 AUTH_CHANNEL2 = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
 REQ_CHANNEL = environ.get("REQ_CHANNEL", False)
