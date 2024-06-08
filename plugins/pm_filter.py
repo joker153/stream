@@ -275,7 +275,7 @@ async def next_page(bot, query):
             ]
     btn.insert(0,
                [
-                   InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+                   InlineKeyboardButton(f' ☟ ᴄʜᴏᴏꜱᴇ ʙᴇʟᴏᴡ ᴏᴘᴛɪᴏɴꜱ ☟ ', url=f"https://t.me/{temp.U_NAME}")
                ]
                )
     btn.insert(1,
@@ -495,7 +495,7 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+        InlineKeyboardButton(f' ☟ ᴄʜᴏᴏꜱᴇ ʙᴇʟᴏᴡ ᴏᴘᴛɪᴏɴꜱ ☟ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 0
 
@@ -671,7 +671,7 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+        InlineKeyboardButton(f' ☟ ᴄʜᴏᴏꜱᴇ ʙᴇʟᴏᴡ ᴏᴘᴛɪᴏɴꜱ ☟ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 0
 
@@ -904,7 +904,7 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
             )
 
     btn.insert(0, [
-        InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+        InlineKeyboardButton(f' ☟ ᴄʜᴏᴏꜱᴇ ʙᴇʟᴏᴡ ᴏᴘᴛɪᴏɴꜱ ☟ ', url=f"https://t.me/{temp.U_NAME}")
     ])
     offset = 0
 
@@ -1955,7 +1955,7 @@ async def auto_filter(client, msg, spoll=False):
     key = f"{message.chat.id}-{message.id}"
     btn.insert(0,
                [
-                   InlineKeyboardButton(f' ♀️ {search} ♀️ ', url=f"https://t.me/{temp.U_NAME}")
+                   InlineKeyboardButton(f' ☟ ᴄʜᴏᴏꜱᴇ ʙᴇʟᴏᴡ ᴏᴘᴛɪᴏɴꜱ ☟ ', url=f"https://t.me/{temp.U_NAME}")
                ]
                )
     btn.insert(1,
