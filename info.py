@@ -42,9 +42,9 @@ class evamaria(Client):
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ['API_ID'])
-API_HASH = environ['API_HASH']
-BOT_TOKEN = environ['BOT_TOKEN']
+API_ID = int(environ['API_ID', '3261311'])
+API_HASH = environ['API_HASH', '41377ec3060b15a5105dbe1e8af95c99']
+BOT_TOKEN = environ['BOT_TOKEN', '6628189003:AAFAjQKsbYsoOtMw3bZZcl3ImndpGTIKMAM']
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -60,7 +60,7 @@ MELCOW_VID = environ.get('MELCOW_VID',"")
 
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1869495895').split()]
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '0').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
@@ -74,8 +74,8 @@ TMP_DOWNLOAD_DIRECTORY = environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 COMMAND_HAND_LER = environ.get("COMMAND_HAND_LER", "/")
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "")
-DATABASE_NAME = environ.get('DATABASE_NAME', "Elsa")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://amal:amal@cluster0.hqdlp6x.mongodb.net/?retryWrites=true&w=majority")
+DATABASE_NAME = environ.get('DATABASE_NAME', "gojo")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
@@ -100,16 +100,16 @@ IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', False))
 #Openai
 AI = is_enabled((environ.get("AI","True")), True)
 OPENAI_API = environ.get("OPENAI_API"," ")
-AI_LOGS = int(environ.get("AI_LOGS"," ")) #GIVE YOUR NEW LOG CHANNEL ID TO STORE MESSAGES THAT THEY SEARCH IN BOT PM.... [ i have added this to keep an eye on the users message, to avoid misuse of Bot ]
+AI_LOGS = int(environ.get("AI_LOGS", "-1001568469839")) #GIVE YOUR NEW LOG CHANNEL ID TO STORE MESSAGES THAT THEY SEARCH IN BOT PM.... [ i have added this to keep an eye on the users message, to avoid misuse of Bot ]
 
 
 #Auto approve
 CHAT_ID = [int(app_chat_id) if id_pattern.search(app_chat_id) else app_chat_id for app_chat_id in environ.get('CHAT_ID', '0').split()]
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour request has been approved")
+TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention} Welcome To {title}/n🔰 ᴡᴇ ᴘʀᴏᴠɪᴅᴇ ᴍᴀʟᴀʏᴀʟᴀᴍ, ᴛᴀᴍɪʟ, ʜɪɴᴅɪ, ᴋᴀɴɴᴀᴅᴀ, ᴛᴇʟᴜɢᴜ, ᴀɴᴅ ᴇɴɢʟɪꜱʜ ᴍᴏᴠɪᴇꜱ, ɪɴᴄʟᴜᴅɪɴɢ ɴᴇᴡʟʏ ʀᴇʟᴇᴀꜱᴇᴅ ᴍᴏᴠɪᴇꜱ.")
 APPROVED = environ.get("APPROVED_WELCOME", "on").lower()
-WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved")
-JOIN_CHANNEL_TEXT = environ.get("JOIN_CHANNEL_TEXT", "Join Our Movie Channel")
-JOIN_CHANNEL_LINK = environ.get("JOIN_CHANNEL_LINK")
+WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention} Welcome To {title}/n🔰 ᴡᴇ ᴘʀᴏᴠɪᴅᴇ ᴍᴀʟᴀʏᴀʟᴀᴍ, ᴛᴀᴍɪʟ, ʜɪɴᴅɪ, ᴋᴀɴɴᴀᴅᴀ, ᴛᴇʟᴜɢᴜ, ᴀɴᴅ ᴇɴɢʟɪꜱʜ ᴍᴏᴠɪᴇꜱ, ɪɴᴄʟᴜᴅɪɴɢ ɴᴇᴡʟʏ ʀᴇʟᴇᴀꜱᴇᴅ ᴍᴏᴠɪᴇꜱ.")
+JOIN_CHANNEL_TEXT = environ.get("JOIN_CHANNEL_TEXT", "𝙲𝚒𝚗𝚎𝙵𝚕𝚒𝚡 🎪 Mᴏᴠɪᴇsx")
+JOIN_CHANNEL_LINK = environ.get("JOIN_CHANNEL_LINK", "https://t.me/CineflixXLinks")
 
 # Others
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
@@ -122,13 +122,13 @@ MAIN_CHANNEL = environ.get('MAIN_CHANNEL',"https://t.me/CineflixXLinks")
 FILE_FORWARD = environ.get('FILE_FORWARD',"https://t.me/CineflixXLinks")
 MSG_ALRT = environ.get('MSG_ALRT', '𝑪𝑯𝑬𝑪𝑲 & 𝑻𝑹𝒀 𝑨𝑳𝑳 𝑴𝒀 𝑭𝑬𝑨𝑻𝑼𝑹𝑬𝑺')
 FILE_CHANNEL = int(environ.get('FILE_CHANNEL', 0))
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', 0))
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1001568469839'))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'CineflixXLinks')
 AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
-IMDB = is_enabled((environ.get('IMDB', "True")), True)
+IMDB = is_enabled((environ.get('IMDB', "False")), False)
 SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
-CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CUSTOM_FILE_CAPTION}")
+CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "📂{file_name}/n/n#ʀᴇQᴜᴇꜱᴛ ᴍᴏᴠɪᴇꜱ :-  @ZoroFilmBot")
 BATCH_FILE_CAPTION = environ.get("BATCH_FILE_CAPTION", CUSTOM_FILE_CAPTION)
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", f"{script.IMDB_TEMPLATE_TXT}")
 LONG_IMDB_DESCRIPTION = is_enabled(environ.get("LONG_IMDB_DESCRIPTION", "False"), False)
