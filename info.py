@@ -40,43 +40,42 @@ class evamaria(Client):
             sleep_threshold=60
         )
 
-# Bot information
-SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ['3261311'])
-API_HASH = environ['41377ec3060b15a5105dbe1e8af95c99']
-BOT_TOKEN = environ['6628189003:AAFAjQKsbYsoOtMw3bZZcl3ImndpGTIKMAM']
+SESSION = os.environ.get('SESSION', 'Media_search')
+API_ID = int(os.environ.get('API_ID', '3261311'))
+API_HASH = os.environ.get('API_HASH', '41377ec3060b15a5105dbe1e8af95c99')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '6628189003:AAFAjQKsbYsoOtMw3bZZcl3ImndpGTIKMAM')
 
 # Bot settings
-CACHE_TIME = int(environ.get('CACHE_TIME', 300))
-USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', False))
-PICS = (environ.get('PICS', 'https://telegra.ph/file/2992a480cae2bc0de1c39.jpg https://telegra.ph/file/76e7b5e94430b84a3d2b2.jpg https://telegra.ph/file/3544a8773740b0412c9dd.jpg https://telegra.ph/file/4b1c7004ea8bd3fed8df9.jpg https://telegra.ph/file/a02e47d932adc336740fa.jpg')).split()
-NOR_IMG = environ.get('NOR_IMG', "https://telegra.ph/file/3ae93b58201a8d5f42f64.jpg")
-SPELL_IMG = environ.get('SPELL_IMG',"https://telegra.ph/file/b58f576fed14cd645d2cf.jpg")
+CACHE_TIME = int(os.environ.get('CACHE_TIME', 300))
+USE_CAPTION_FILTER = bool(os.environ.get('USE_CAPTION_FILTER', False))
+PICS = os.environ.get('PICS', 'https://telegra.ph/file/2992a480cae2bc0de1c39.jpg https://telegra.ph/file/76e7b5e94430b84a3d2b2.jpg https://telegra.ph/file/3544a8773740b0412c9dd.jpg https://telegra.ph/file/4b1c7004ea8bd3fed8df9.jpg https://telegra.ph/file/a02e47d932adc336740fa.jpg').split()
+NOR_IMG = os.environ.get('NOR_IMG', "https://telegra.ph/file/3ae93b58201a8d5f42f64.jpg")
+SPELL_IMG = os.environ.get('SPELL_IMG', "https://telegra.ph/file/b58f576fed14cd645d2cf.jpg")
 
 # Welcome area
-MELCOW_IMG = environ.get('MELCOW_IMG',"https://telegra.ph/file/e54cae941b9b81f13eb71.jpg")
-MELCOW_VID = environ.get('MELCOW_VID',"")
-
-
+MELCOW_IMG = os.environ.get('MELCOW_IMG', "https://telegra.ph/file/e54cae941b9b81f13eb71.jpg")
+MELCOW_VID = os.environ.get('MELCOW_VID', "")
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '1869495895').split()]
-CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '0').split()]
-auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
+id_pattern = re.compile(r'^.\d+$')
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMINS', '1869495895').split()]
+CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in os.environ.get('CHANNELS', '0').split()]
+auth_users = [int(user) if id_pattern.search(user) else user for user in os.environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
-auth_grp = environ.get('AUTH_GROUP')
+auth_grp = os.environ.get('AUTH_GROUP')
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
-support_chat_id = environ.get('SUPPORT_CHAT_ID')
+support_chat_id = os.environ.get('SUPPORT_CHAT_ID')
+
 # This is required for the plugins involving the file system.
-TMP_DOWNLOAD_DIRECTORY = environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
+TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 
 # Command
-COMMAND_HAND_LER = environ.get("COMMAND_HAND_LER", "/")
+COMMAND_HAND_LER = os.environ.get("COMMAND_HAND_LER", "/")
 
 # MongoDB information
-DATABASE_URI = environ.get('mongodb+srv://amal:amal@cluster0.hqdlp6x.mongodb.net/?retryWrites=true&w=majority')
-DATABASE_NAME = environ.get('gojo')
-COLLECTION_NAME = environ.get('Telegram_files')
+DATABASE_URI = os.environ.get('DATABASE_URI', 'mongodb+srv://amal:amal@cluster0.hqdlp6x.mongodb.net/?retryWrites=true&w=majority')
+DATABASE_NAME = os.environ.get('DATABASE_NAME', 'gojo')
+COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
 #Downloader
