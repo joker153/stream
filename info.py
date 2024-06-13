@@ -42,9 +42,9 @@ class evamaria(Client):
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ['API_ID', '3261311'])
-API_HASH = environ['API_HASH', '41377ec3060b15a5105dbe1e8af95c99']
-BOT_TOKEN = environ['BOT_TOKEN', '6628189003:AAFAjQKsbYsoOtMw3bZZcl3ImndpGTIKMAM']
+API_ID = int(environ['3261311'])
+API_HASH = environ['41377ec3060b15a5105dbe1e8af95c99']
+BOT_TOKEN = environ['6628189003:AAFAjQKsbYsoOtMw3bZZcl3ImndpGTIKMAM']
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -74,9 +74,9 @@ TMP_DOWNLOAD_DIRECTORY = environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 COMMAND_HAND_LER = environ.get("COMMAND_HAND_LER", "/")
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://amal:amal@cluster0.hqdlp6x.mongodb.net/?retryWrites=true&w=majority")
-DATABASE_NAME = environ.get('DATABASE_NAME', "gojo")
-COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
+DATABASE_URI = environ.get('mongodb+srv://amal:amal@cluster0.hqdlp6x.mongodb.net/?retryWrites=true&w=majority')
+DATABASE_NAME = environ.get('gojo')
+COLLECTION_NAME = environ.get('Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
 #Downloader
