@@ -288,9 +288,13 @@ Elsa
 ©{message.chat.title}</b>
 """
 
-    CUSTOM_FILE_CAPTION = """<b>📂 Fɪʟᴇ ɴᴀᴍᴇ : {file_name}
+    CUSTOM_FILE_CAPTION = """<b>href=https://t.me/+fx9w8TbvlU5hMzZl> 📂 Fɪʟᴇ ɴᴀᴍᴇ : {file_name} </b>
 
-</b>"""
+🔗 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 𝗟𝗜𝗡𝗞 ☞
+    <a href=https://t.me/+fx9w8TbvlU5hMzZl>ꜰɪʟᴍ ɢʀᴏᴜᴘ 🎥</a>
+    <a href=https://t.me/+J1ZAODvANTY3NjU1>ꜰɪʟᴍ ᴜᴘᴅᴀᴛᴇꜱ 🎬</a>
+    <a href=https://t.me/CineflixXLinks>ꜰɪʟᴍ ᴜᴘᴅᴀᴛᴇꜱ 🎬</a>
+"""
 
     RESTART_TXT = """
 <b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !
