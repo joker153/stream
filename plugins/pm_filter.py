@@ -2007,7 +2007,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"<b><i>ʜᴇʀᴇ ɪꜱ ᴡʜᴀᴛ ɪ ꜰᴏᴜɴᴅ ʏᴏᴜʀ Qᴜᴇʀʏ:\n {search}\n👤ʀᴇQᴜᴇꜱᴛᴇᴅ ʙʏ : {message.from_user.mention}\n©️ ᴄᴏᴘʏʀɪɢʜᴛ : {message.chat.title}</i></b>"
+        cap = f"<b><i>ꜰɪʟᴍ ɴᴀᴍᴇ:\n {search}\n👤ᴜꜱᴇʀ: {message.from_user.mention}\n\nᴄᴏᴘʏʀɪɢʜᴛ : {message.chat.title}</i></b>"
     if imdb and imdb.get('poster'):
         try:
             if message.chat.id == SUPPORT_CHAT_ID:
@@ -2100,7 +2100,7 @@ async def auto_filter(client, msg, spoll=False):
                 )
             )
         else:
-            fuk = await message.reply_photo(photo=NOR_IMG, caption=cap, reply_markup=InlineKeyboardMarkup(btn))
+            fuk = await message.reply_text(text=cap, reply_markup=InlineKeyboardMarkup(btn))
             try:
                 if settings['auto_delete']:
                     await asyncio.sleep(600)
