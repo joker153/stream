@@ -59,7 +59,7 @@ MELCOW_VID = os.environ.get('MELCOW_VID', "")
 # Admins, Channels & Users
 id_pattern = re.compile(r'^.\d+$')
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMINS', '1869495895').split()]
-CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in os.environ.get('CHANNELS', '0').split()]
+CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in os.environ.get('CHANNELS', '-1001481355049 -1001695699917').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in os.environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_grp = os.environ.get('AUTH_GROUP')
@@ -83,7 +83,7 @@ DOWNLOAD_LOCATION = environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/AudioBoT/")
 
 # FSUB
 
-auth_channel = environ.get('AUTH_CHANNEL')
+auth_channel = environ.get('AUTH_CHANNEL', '-1001547906730')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 AUTH_CHANNEL2 = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
@@ -104,9 +104,9 @@ AI_LOGS = int(environ.get("AI_LOGS", "-1001568469839")) #GIVE YOUR NEW LOG CHANN
 
 #Auto approve
 CHAT_ID = [int(app_chat_id) if id_pattern.search(app_chat_id) else app_chat_id for app_chat_id in environ.get('CHAT_ID', '0').split()]
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention} Welcome To {title}/n🔰 ᴡᴇ ᴘʀᴏᴠɪᴅᴇ ᴍᴀʟᴀʏᴀʟᴀᴍ, ᴛᴀᴍɪʟ, ʜɪɴᴅɪ, ᴋᴀɴɴᴀᴅᴀ, ᴛᴇʟᴜɢᴜ, ᴀɴᴅ ᴇɴɢʟɪꜱʜ ᴍᴏᴠɪᴇꜱ, ɪɴᴄʟᴜᴅɪɴɢ ɴᴇᴡʟʏ ʀᴇʟᴇᴀꜱᴇᴅ ᴍᴏᴠɪᴇꜱ.")
+TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention} Welcome To {title}\n\n🔰 ᴡᴇ ᴘʀᴏᴠɪᴅᴇ ᴍᴀʟᴀʏᴀʟᴀᴍ, ᴛᴀᴍɪʟ, ʜɪɴᴅɪ, ᴋᴀɴɴᴀᴅᴀ, ᴛᴇʟᴜɢᴜ, ᴀɴᴅ ᴇɴɢʟɪꜱʜ ᴍᴏᴠɪᴇꜱ, ɪɴᴄʟᴜᴅɪɴɢ ɴᴇᴡʟʏ ʀᴇʟᴇᴀꜱᴇᴅ ᴍᴏᴠɪᴇꜱ.")
 APPROVED = environ.get("APPROVED_WELCOME", "on").lower()
-WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention} Welcome To {title}/n🔰 ᴡᴇ ᴘʀᴏᴠɪᴅᴇ ᴍᴀʟᴀʏᴀʟᴀᴍ, ᴛᴀᴍɪʟ, ʜɪɴᴅɪ, ᴋᴀɴɴᴀᴅᴀ, ᴛᴇʟᴜɢᴜ, ᴀɴᴅ ᴇɴɢʟɪꜱʜ ᴍᴏᴠɪᴇꜱ, ɪɴᴄʟᴜᴅɪɴɢ ɴᴇᴡʟʏ ʀᴇʟᴇᴀꜱᴇᴅ ᴍᴏᴠɪᴇꜱ.")
+WELCOME_TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention} Welcome To {title}\n\n🔰 ᴡᴇ ᴘʀᴏᴠɪᴅᴇ ᴍᴀʟᴀʏᴀʟᴀᴍ, ᴛᴀᴍɪʟ, ʜɪɴᴅɪ, ᴋᴀɴɴᴀᴅᴀ, ᴛᴇʟᴜɢᴜ, ᴀɴᴅ ᴇɴɢʟɪꜱʜ ᴍᴏᴠɪᴇꜱ, ɪɴᴄʟᴜᴅɪɴɢ ɴᴇᴡʟʏ ʀᴇʟᴇᴀꜱᴇᴅ ᴍᴏᴠɪᴇꜱ.")
 JOIN_CHANNEL_TEXT = environ.get("JOIN_CHANNEL_TEXT", "𝙲𝚒𝚗𝚎𝙵𝚕𝚒𝚡 🎪 Mᴏᴠɪᴇsx")
 JOIN_CHANNEL_LINK = environ.get("JOIN_CHANNEL_LINK", "https://t.me/CineflixXLinks")
 
@@ -127,7 +127,7 @@ AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
 IMDB = is_enabled((environ.get('IMDB', "False")), False)
 SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
-CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "📂{file_name}/n/n#ʀᴇQᴜᴇꜱᴛ ᴍᴏᴠɪᴇꜱ :-  @ZoroFilmBot")
+CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CUSTOM_FILE_CAPTION}")
 BATCH_FILE_CAPTION = environ.get("BATCH_FILE_CAPTION", CUSTOM_FILE_CAPTION)
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", f"{script.IMDB_TEMPLATE_TXT}")
 LONG_IMDB_DESCRIPTION = is_enabled(environ.get("LONG_IMDB_DESCRIPTION", "False"), False)
