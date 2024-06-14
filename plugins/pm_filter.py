@@ -285,14 +285,7 @@ async def next_page(bot, query):
                    InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
-    btn.insert(2,
-               [
-                   InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
-                   InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
-                   InlineKeyboardButton(f'sᴇʀɪᴇs', 'sinfo'),
-                   InlineKeyboardButton(f'ᴛɪᴘs', 'tinfo')
-               ]
-               )
+   
 
     if 0 < offset <= 10:
         off_set = 0
@@ -1336,7 +1329,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('× ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ×', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
         ], [
             InlineKeyboardButton('🔍 sᴇᴀʀᴄʜ', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('ᴏᴡɴ ɪɴғᴏ', url='https://t.me/+ipDgG7Qfrps1ZTJl')
+            InlineKeyboardButton('ᴏᴡɴ ɪɴғᴏ', url='https://t.me/godx008')
         ], [
             InlineKeyboardButton('ʜᴇʟᴘ', callback_data='help'),
             InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about')
@@ -1965,14 +1958,7 @@ async def auto_filter(client, msg, spoll=False):
                    InlineKeyboardButton("ʟᴀɴɢᴜᴀɢᴇs", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
                ]
                )
-    btn.insert(2,
-               [
-                   InlineKeyboardButton(f'ɪɴꜰᴏ', 'reqinfo'),
-                   InlineKeyboardButton(f'ᴍᴏᴠɪᴇ', 'minfo'),
-                   InlineKeyboardButton(f'sᴇʀɪᴇs', 'sinfo'),
-                   InlineKeyboardButton(f'ᴛɪᴘs', 'tinfo')
-               ]
-               )
+   
 
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
