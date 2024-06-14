@@ -43,7 +43,7 @@ class evamaria(Client):
 SESSION = os.environ.get('SESSION', 'Media_search')
 API_ID = int(os.environ.get('API_ID', '3261311'))
 API_HASH = os.environ.get('API_HASH', '41377ec3060b15a5105dbe1e8af95c99')
-BOT_TOKEN = os.environ.get('BOT_TOKEN', '6628189003:AAFAjQKsbYsoOtMw3bZZcl3ImndpGTIKMAM')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '7284021150:AAEHsJ2WLs7lCvXlN4mRbEsrcRsS6Wh1_Uc')
 
 # Bot settings
 CACHE_TIME = int(os.environ.get('CACHE_TIME', 300))
@@ -73,8 +73,8 @@ TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/"
 COMMAND_HAND_LER = os.environ.get("COMMAND_HAND_LER", "/")
 
 # MongoDB information
-DATABASE_URI = os.environ.get('DATABASE_URI', 'mongodb+srv://amal:amal@cluster0.hqdlp6x.mongodb.net/?retryWrites=true&w=majority')
-DATABASE_NAME = os.environ.get('DATABASE_NAME', 'gojo')
+DATABASE_URI = os.environ.get('DATABASE_URI', 'mongodb+srv://amal:amal@cluster0.xs86qqm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+DATABASE_NAME = os.environ.get('DATABASE_NAME', 'req')
 COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
@@ -83,11 +83,11 @@ DOWNLOAD_LOCATION = environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/AudioBoT/")
 
 # FSUB
 
-auth_channel = environ.get('AUTH_CHANNEL', '-1001547906730')
+auth_channel = environ.get('AUTH_CHANNEL', '')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 AUTH_CHANNEL2 = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
-REQ_CHANNEL = environ.get("REQ_CHANNEL", False)
+REQ_CHANNEL = environ.get("REQ_CHANNEL", '-1002170355467')
 REQ_CHANNEL = int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL) else False
 JOIN_REQS_DB = environ.get("JOIN_REQS_DB", DATABASE_URI)
 
@@ -99,7 +99,7 @@ IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', False))
 #Openai
 AI = is_enabled((environ.get("AI","False")), False)
 OPENAI_API = environ.get("OPENAI_API"," ")
-AI_LOGS = int(environ.get("AI_LOGS", "-1001568469839")) #GIVE YOUR NEW LOG CHANNEL ID TO STORE MESSAGES THAT THEY SEARCH IN BOT PM.... [ i have added this to keep an eye on the users message, to avoid misuse of Bot ]
+AI_LOGS = int(environ.get("AI_LOGS", "-1002049486679")) #GIVE YOUR NEW LOG CHANNEL ID TO STORE MESSAGES THAT THEY SEARCH IN BOT PM.... [ i have added this to keep an eye on the users message, to avoid misuse of Bot ]
 
 
 #Auto approve
@@ -121,7 +121,7 @@ MAIN_CHANNEL = environ.get('MAIN_CHANNEL',"https://t.me/CineflixXLinks")
 FILE_FORWARD = environ.get('FILE_FORWARD',"https://t.me/CineflixXLinks")
 MSG_ALRT = environ.get('MSG_ALRT', '𝑪𝑯𝑬𝑪𝑲 & 𝑻𝑹𝒀 𝑨𝑳𝑳 𝑴𝒀 𝑭𝑬𝑨𝑻𝑼𝑹𝑬𝑺')
 FILE_CHANNEL = int(environ.get('FILE_CHANNEL', 0))
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1001568469839'))
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002049486679'))
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'CineflixXLinks')
 AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
