@@ -43,7 +43,7 @@ class evamaria(Client):
 SESSION = os.environ.get('SESSION', 'Media_search')
 API_ID = int(os.environ.get('API_ID', '3261311'))
 API_HASH = os.environ.get('API_HASH', '41377ec3060b15a5105dbe1e8af95c99')
-BOT_TOKEN = os.environ.get('BOT_TOKEN', '7284021150:AAEHsJ2WLs7lCvXlN4mRbEsrcRsS6Wh1_Uc')
+BOT_TOKEN = os.environ.get('BOT_TOKEN', '6426072097:AAEWvyiV50vU2ECjeHdgPMy_Vx-sDDiNB44')
 
 # Bot settings
 CACHE_TIME = int(os.environ.get('CACHE_TIME', 300))
@@ -107,8 +107,8 @@ OWNER_USERNAME = "LazyDeveloper"
 COMMAND_HAND_LER = os.environ.get("COMMAND_HAND_LER", "/")
 
 # MongoDB information
-DATABASE_URI = os.environ.get('DATABASE_URI', 'mongodb+srv://amal:amal@cluster0.xs86qqm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-DATABASE_NAME = os.environ.get('DATABASE_NAME', 'req')
+DATABASE_URI = os.environ.get('DATABASE_URI', 'mongodb+srv://amal:amal@cluster0.37nxyyj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+DATABASE_NAME = os.environ.get('DATABASE_NAME', 'stream')
 COLLECTION_NAME = os.environ.get('COLLECTION_NAME', 'Telegram_files')
 MONGO_URL = os.environ.get('MONGO_URL', "")
 
@@ -117,7 +117,7 @@ DOWNLOAD_LOCATION = environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/AudioBoT/")
 
 # FSUB
 
-auth_channel = environ.get('AUTH_CHANNEL', '-1001839733576')
+auth_channel = environ.get('AUTH_CHANNEL', '')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 AUTH_CHANNEL2 = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else False
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
