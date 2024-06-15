@@ -37,3 +37,11 @@ python-math
 Pillow
 speedtest-cli
 openai
+
+jinja2
+python-dotenv<=0.20.0
+apscheduler
+pyshorteners
+psutil
+pyromod
+colorama
