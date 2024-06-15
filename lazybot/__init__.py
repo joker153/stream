@@ -1,13 +1,7 @@
-    # Credit @LazyDeveloper.
-    # Please Don't remove credit.
-    # Born to make history @LazyDeveloper !
-
-    # Thank you LazyDeveloper for helping us in this Journey
-    # 🥰  Thank you for giving me credit @LazyDeveloperr  🥰
-
-    # for any error please contact me -> telegram@LazyDeveloperr or insta @LazyDeveloperr 
 import logging
 import logging.config
+
+# Get logging configurations
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
@@ -18,28 +12,35 @@ logging.basicConfig(
 )
 logging.getLogger("aiohttp").setLevel(logging.ERROR)
 logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
-logger = logging.getLogger(__name__)
 
-from pyrogram import Client
+from pyrogram import Client, __version__, filters
+from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
+from database.users_chats_db import db
 from info import *
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
+from Script import script 
+from datetime import date, datetime 
+import pytz
 from aiohttp import web
-from pyrogram import Client
 
-class LazyPrincessXBot(Client):
+class Bot(Client):
+
     def __init__(self):
         super().__init__(
             name=SESSION,
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN,
-            workers=50,
+            workers=150,
             plugins={"root": "plugins"},
             sleep_threshold=5,
         )
+
+
+    
     async def iter_messages(
         self,
         chat_id: Union[int, str],
@@ -79,7 +80,8 @@ class LazyPrincessXBot(Client):
                 yield message
                 current += 1
 
-multi_clients = {}
-work_loads = {}
 
-LazyPrincessBot = LazyPrincessXBot()
+
+
+app = Bot()
+app.run()
