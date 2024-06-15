@@ -83,5 +83,7 @@ class Bot(Client):
 
 
 
-app = Bot()
-app.run()
+multi_clients = {}
+work_loads = {}
+
+LazyPrincessBot = Bot()
