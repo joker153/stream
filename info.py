@@ -1,6 +1,6 @@
 import re
 import os
-from os import environ
+from os import getenv, environ
 from pyrogram import enums
 from Script import script
 from dotenv import load_dotenv
